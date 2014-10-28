@@ -1,4 +1,4 @@
-project(firefly)
+project(cudaGlmPerfTest)
 cmake_minimum_required(VERSION 2.6)
 find_package(CUDA REQUIRED)
 
@@ -30,11 +30,11 @@ else()
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 endif()
 
-cuda_add_executable(firefly ${project_SRCS})
+cuda_add_executable(cudaGlmPerfTest ${project_SRCS})
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBS ${LIBS})
-	target_link_libraries(firefly ${LIBS})
+	target_link_libraries(cudaGlmPerfTest ${LIBS})
 else()
     set(LIBS ${LIBS})
 endif()

@@ -1,2 +1,4 @@
 syntax: glob
 src/CMakeLists.txt.user
+src-build
+src/glm/CMakeLists.txt
