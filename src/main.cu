@@ -36,173 +36,101 @@ void hce(cudaError_t error)
     }
 }
 
-__device__ __host__ glm::vec4 mul(glm::mat4 m, glm::vec4 v) {
-    return glm::vec4(m[0].x*v.x + m[1].x*v.y + m[2].x*v.z + m[3].x*v.w,
-                     m[0].y*v.x + m[1].y*v.y + m[2].y*v.z + m[3].y*v.w,
-                     m[0].z*v.x + m[1].z*v.y + m[2].z*v.z + m[3].z*v.w,
-                     m[0].w*v.x + m[1].w*v.y + m[2].w*v.z + m[3].w*v.w);
-}
-
-__global__ void cuKernel(const float4 *vectors, mat4 matrix, float4 *result, int numElements, int innerLoopSize, bool matrixTest) {
+__global__ void cuMatrixKernel(const float4 *vectors, mat4 matrix, float4 *result, int numElements, int innerLoopSize) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if(i < numElements) {
-        if(matrixTest) {
-            result[i] = matrix * vectors[i];
-            if(i > 3) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i] = matrix * vectors[i];
-                    result[i] += matrix * vectors[i-1];
-                    result[i] += matrix * vectors[i-2];
-                    result[i] += matrix * vectors[i-3];
-                    result[i] += matrix * vectors[i-4];
-                }
-            }
-        }
-        else {
-            result[i] = vectors[i];
-            if(i>1) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i].w = dot(vectors[i-1], vectors[i]);
-                    float3 tmp = make_float3(result[i]);
-                    float3 tmp2 = make_float3(vectors[i]);
-                    tmp = cross(tmp, tmp2);
-                    result[i].x = dot(tmp, tmp2);
-
-                    tmp = make_float3(result[i]);
-                    tmp2 = make_float3(vectors[i]);
-                    tmp = cross(tmp, tmp2);
-                    result[i].y = dot(tmp, tmp2);
-
-                    tmp = make_float3(result[i]);
-                    tmp2 = make_float3(vectors[i]);
-                    tmp = cross(tmp, tmp2);
-                    result[i].z = dot(tmp, tmp2);
-                }
-            }
-        }
-    }
-}
-
-__global__ void glmMulKernel(const glm::vec4 *vectors, const glm::mat4 matrix, glm::vec4 *result, int numElements, int innerLoopSize, bool matrixTest) {
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if(i < numElements) {
-        if(matrixTest) {
-            result[i] = mul(matrix, vectors[i]);
-            if(i > 3) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i] = mul(matrix, vectors[i]);
-                    result[i] += mul(matrix, vectors[i-1]);
-                    result[i] += mul(matrix, vectors[i-2]);
-                    result[i] += mul(matrix, vectors[i-3]);
-                    result[i] += mul(matrix, vectors[i-4]);
-                }
-            }
-        }
-        else {
-            result[i] = vectors[i];
-            if(i>1) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i].w = glm::dot(vectors[i-1], vectors[i]);
-                    glm::vec3 tmp(result[i]);
-                    glm::vec3 tmp2(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].x = glm::dot(tmp, tmp2);
-
-                    tmp = glm::vec3(result[i]);
-                    tmp2 = glm::vec3(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].y = glm::dot(tmp, tmp2);
-
-                    tmp = glm::vec3(result[i]);
-                    tmp2 = glm::vec3(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].z = glm::dot(tmp, tmp2);
-                }
-            }
-        }
-    }
-}
-
-__global__ void glmKernel(const glm::vec4 *vectors, const glm::mat4 matrix, glm::vec4 *result, int numElements, int innerLoopSize, bool matrixTest) {
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if(i < numElements) {
-        if(matrixTest) {
-            result[i] = matrix * vectors[i];
-            if(i > 3) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i] = matrix * vectors[i];
-                    result[i] += matrix * vectors[i-1];
-                    result[i] += matrix * vectors[i-2];
-                    result[i] += matrix * vectors[i-3];
-                    result[i] += matrix * vectors[i-4];
-                }
-            }
-        }
-        else {
-            result[i] = vectors[i];
-            if(i>1) {
-                for(int j=0; j<innerLoopSize; j++) {
-                    result[i].w = glm::dot(vectors[i-1], vectors[i]);
-                    glm::vec3 tmp(result[i]);
-                    glm::vec3 tmp2(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].x = glm::dot(tmp, tmp2);
-
-                    tmp = glm::vec3(result[i]);
-                    tmp2 = glm::vec3(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].y = glm::dot(tmp, tmp2);
-
-                    tmp = glm::vec3(result[i]);
-                    tmp2 = glm::vec3(vectors[i]);
-                    tmp = glm::cross(tmp, tmp2);
-                    result[i].z = glm::dot(tmp, tmp2);
-                }
-            }
-        }
-    }
-}
-
-void cpuKernel(const glm::vec4 *vectors, const glm::mat4 matrix, glm::vec4 *result, int numElements, int innerLoopSize, bool matrixTest) {
-    for(int i=0; i<numElements; i++) {
-        if(i < numElements) {
-            if(matrixTest) {
+        result[i] = matrix * vectors[i];
+        if(i > 3) {
+            for(int j=0; j<innerLoopSize; j++) {
                 result[i] = matrix * vectors[i];
-                if(i > 3) {
-                    for(int j=0; j<innerLoopSize; j++) {
-                        result[i] = matrix * vectors[i];
-                        result[i] += matrix * vectors[i-1];
-                        result[i] += matrix * vectors[i-2];
-                        result[i] += matrix * vectors[i-3];
-                        result[i] += matrix * vectors[i-4];
-                    }
-                }
-            }
-            else {
-                result[i] = vectors[i];
-                if(i>1) {
-                    for(int j=0; j<innerLoopSize; j++) {
-                        result[i].w = glm::dot(vectors[i-1], vectors[i]);
-                        glm::vec3 tmp(result[i]);
-                        glm::vec3 tmp2(vectors[i]);
-                        tmp = glm::cross(tmp, tmp2);
-                        result[i].x = glm::dot(tmp, tmp2);
-
-                        tmp = glm::vec3(result[i]);
-                        tmp2 = glm::vec3(vectors[i]);
-                        tmp = glm::cross(tmp, tmp2);
-                        result[i].y = glm::dot(tmp, tmp2);
-
-                        tmp = glm::vec3(result[i]);
-                        tmp2 = glm::vec3(vectors[i]);
-                        tmp = glm::cross(tmp, tmp2);
-                        result[i].z = glm::dot(tmp, tmp2);
-                    }
-                }
+                result[i] += matrix * vectors[i-1];
+                result[i] += matrix * vectors[i-2];
+                result[i] += matrix * vectors[i-3];
+                result[i] += matrix * vectors[i-4];
             }
         }
     }
 }
+__global__ void cuDotKernel(const float4 *vectors, float4 *result, int numElements, int innerLoopSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < numElements) {
+        result[i] = vectors[i];
+        if(i>1 && i < NUM_ELEMENTS - 1) {
+            for(int j=0; j<innerLoopSize; j++) {
+                result[i].y = dot(vectors[i+1], vectors[i]);
+                result[i].x = dot(vectors[i-1], vectors[i]);
+                result[i].z = dot(vectors[i+1], result[i]);
+                result[i].w = dot(vectors[i-1], result[i]);
+            }
+        }
+    }
+}
+
+__global__ void cuCrossKernel(const float4 *vectors, float4 *result, int numElements, int innerLoopSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < numElements) {
+        result[i] = vectors[i];
+        if(i>1 && i < NUM_ELEMENTS - 1) {
+            for(int j=0; j<innerLoopSize; j++) {
+                float3 tmp1 = make_float3(vectors[i-1]);
+                float3 tmp2 = cross(tmp1, make_float3(vectors[i]));
+                float3 tmp3 = cross(tmp2, make_float3(vectors[i+1]));
+                float3 tmp4 = cross(tmp2, tmp3);
+                result[i] = make_float4(cross(tmp1, tmp2), result[i].w);
+                result[i] = make_float4(tmp4.x+result[i].x, result[i].y, tmp4.y+result[i].z, tmp4.z + result[i].w);
+            }
+        }
+    }
+}
+
+
+__global__ void glmMatrixKernel(const glm::vec4 *vectors, glm::mat4 matrix, glm::vec4 *result, int numElements, int innerLoopSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < numElements) {
+        result[i] = matrix * vectors[i];
+        if(i > 3) {
+            for(int j=0; j<innerLoopSize; j++) {
+                result[i] = matrix * vectors[i];
+                result[i] += matrix * vectors[i-1];
+                result[i] += matrix * vectors[i-2];
+                result[i] += matrix * vectors[i-3];
+                result[i] += matrix * vectors[i-4];
+            }
+        }
+    }
+}
+__global__ void glmDotKernel(const glm::vec4 *vectors, glm::vec4 *result, int numElements, int innerLoopSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < numElements) {
+        result[i] = vectors[i];
+        if(i>1 && i < NUM_ELEMENTS - 1) {
+            for(int j=0; j<innerLoopSize; j++) {
+                result[i].y = glm::dot(vectors[i+1], vectors[i]);
+                result[i].x = glm::dot(vectors[i-1], vectors[i]);
+                result[i].z = glm::dot(vectors[i+1], result[i]);
+                result[i].w = glm::dot(vectors[i-1], result[i]);
+            }
+        }
+    }
+}
+
+__global__ void glmCrossKernel(const glm::vec4 *vectors, glm::vec4 *result, int numElements, int innerLoopSize) {
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    if(i < numElements) {
+        result[i] = vectors[i];
+        if(i>1 && i < NUM_ELEMENTS - 1) {
+            for(int j=0; j<innerLoopSize; j++) {
+                glm::vec3 tmp1 = glm::vec3(vectors[i-1]);
+                glm::vec3 tmp2 = glm::cross(tmp1, glm::vec3(vectors[i]));
+                glm::vec3 tmp3 = glm::cross(tmp2, glm::vec3(vectors[i+1]));
+                glm::vec3 tmp4 = glm::cross(tmp2, tmp3);
+                result[i] = glm::vec4(glm::cross(tmp1, tmp2), result[i].w);
+                result[i] = glm::vec4(tmp4.x+result[i].x, result[i].y, tmp4.y+result[i].z, tmp4.z + result[i].w);
+            }
+        }
+    }
+}
+
 
 int main(int argc, char *argv[]) {
     glm::mat4 glmMatrix;
@@ -241,22 +169,21 @@ int main(int argc, char *argv[]) {
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, THREADS_PER_BLOCK);
 
     //warmup
-    glmKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 10, true);
-    cuKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 10, true);
-    hce(cudaDeviceSynchronize());
+    glmMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 10);  hce(cudaDeviceSynchronize());
+    glmDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 10);                hce(cudaDeviceSynchronize());
+    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 10);              hce(cudaDeviceSynchronize());
 
-    auto interim0 = std::chrono::high_resolution_clock::now();
+    cuMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 10);      hce(cudaDeviceSynchronize());
+    cuDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 10);                   hce(cudaDeviceSynchronize());
+    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 10);                 hce(cudaDeviceSynchronize());
 
-    glmMulKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 100, true);
-    hce(cudaDeviceSynchronize());
-    auto interim1 = std::chrono::high_resolution_clock::now();
+    auto timeMatrix0 = std::chrono::high_resolution_clock::now();
 
-    cuKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 100, true);
-    hce(cudaDeviceSynchronize());
-    auto interim2 = std::chrono::high_resolution_clock::now();
+    glmMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 100); hce(cudaDeviceSynchronize());
+    auto timeMatrix1 = std::chrono::high_resolution_clock::now();
 
-//    cpuKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 100, true); // takes too long
-//    auto interim3 = std::chrono::high_resolution_clock::now();
+    cuMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 100);     hce(cudaDeviceSynchronize());
+    auto timeMatrix2 = std::chrono::high_resolution_clock::now();
 
     glm::vec4* glmResult = new glm::vec4[NUM_ELEMENTS];
     hce(cudaMemcpy(glmResult, d_glmResult, glmSize, cudaMemcpyDeviceToHost));
@@ -265,23 +192,19 @@ int main(int argc, char *argv[]) {
 
     hce(cudaGetLastError());
     for(int i=0; i<NUM_ELEMENTS; i++) {
-//        assert(glm::length(glmResult[i] - cuResult[i]) < 0.0001f);
-//        assert(length(cuResult[i] - make_float4(cpuResult[i])) < 0.0001f);
-        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.000001f) {
+        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.0001f) {
             std::cerr << "error matrix i=" << i << std::endl;
             break;
         }
     }
 
-    auto interim4 = std::chrono::high_resolution_clock::now();
+    auto timeDot0 = std::chrono::high_resolution_clock::now();
 
-    glmMulKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 100, false);
-    hce(cudaDeviceSynchronize());
-    auto interim5 = std::chrono::high_resolution_clock::now();
+    glmDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 100);       hce(cudaDeviceSynchronize());
+    auto timeDot1 = std::chrono::high_resolution_clock::now();
 
-    cuKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 100, false);
-    hce(cudaDeviceSynchronize());
-    auto interim6 = std::chrono::high_resolution_clock::now();
+    cuDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 100);          hce(cudaDeviceSynchronize());
+    auto timeDot2 = std::chrono::high_resolution_clock::now();
 
     hce(cudaGetLastError());
 
@@ -289,19 +212,41 @@ int main(int argc, char *argv[]) {
     hce(cudaMemcpy(cuResult, d_cuResult, glmSize, cudaMemcpyDeviceToHost));
 
     for(int i=0; i<NUM_ELEMENTS; i++) {
-//        assert(glm::length(glmResult[i] - cuResult[i]) < 0.0001f);
-//        assert(length(cuResult[i] - make_float4(cpuResult[i])) < 0.0001f);
-        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.000001f) {
-            std::cerr << "error cross dot i=" << i << std::endl;
+        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.0001f) {
+            std::cerr << "error dot i=" << i << std::endl;
             break;
         }
     }
 
-    std::cout << "time for cuda glm (matrix): " << std::chrono::duration_cast<std::chrono::milliseconds>(interim1 - interim0).count() << " milliseconds" << std::endl;
-    std::cout << "time for cuda helper math (matrix): " << std::chrono::duration_cast<std::chrono::milliseconds>(interim2 - interim1).count() << " milliseconds" << std::endl;
-//    std::cout << "time for cpu: " << std::chrono::duration_cast<std::chrono::milliseconds>(interim3 - interim2).count() << " milliseconds" << std::endl;
-    std::cout << "time for cuda glm (dot and cross): " << std::chrono::duration_cast<std::chrono::milliseconds>(interim5 - interim4).count() << " milliseconds" << std::endl;
-    std::cout << "time for cuda helper math (dot and cross): " << std::chrono::duration_cast<std::chrono::milliseconds>(interim6 - interim5).count() << " milliseconds" << std::endl;
+
+    auto timeCross0 = std::chrono::high_resolution_clock::now();
+
+    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 100);     hce(cudaDeviceSynchronize());
+    auto timeCross1 = std::chrono::high_resolution_clock::now();
+
+    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 100);        hce(cudaDeviceSynchronize());
+    auto timeCross2 = std::chrono::high_resolution_clock::now();
+
+    hce(cudaGetLastError());
+
+    hce(cudaMemcpy(glmResult, d_glmResult, glmSize, cudaMemcpyDeviceToHost));
+    hce(cudaMemcpy(cuResult, d_cuResult, glmSize, cudaMemcpyDeviceToHost));
+
+    for(int i=0; i<NUM_ELEMENTS; i++) {
+        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.0001f) {
+            std::cerr << "error cross i=" << i << std::endl;
+            break;
+        }
+    }
+
+    std::cout << "time for cuda glm (matrix): "         << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix1 -  timeMatrix0).count() << " milliseconds" << std::endl;
+    std::cout << "time for cuda helper math (matrix): " << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix2 -  timeMatrix1).count() << " milliseconds" << std::endl;
+
+    std::cout << "time for cuda glm (dot): "            << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot1 -     timeDot0).count() << " milliseconds" << std::endl;
+    std::cout << "time for cuda helper math (dot): "    << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot2 -     timeDot1).count() << " milliseconds" << std::endl;
+
+    std::cout << "time for cuda glm (cross): "          << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross1 -   timeCross0).count() << " milliseconds" << std::endl;
+    std::cout << "time for cuda helper math (cross): "  << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross2 -   timeCross1).count() << " milliseconds" << std::endl;
 
     delete[] glmVectors;
     delete[] cuVectors;
