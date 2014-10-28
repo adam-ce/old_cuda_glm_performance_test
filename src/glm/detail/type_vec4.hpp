@@ -29,6 +29,11 @@
 #ifndef glm_core_type_gentype4
 #define glm_core_type_gentype4
 
+#if !defined(__CUDA_LIBDEVICE__)
+#include "builtin_types.h"
+#endif /* !__CUDA_LIBDEVICE__ */
+#include "host_defines.h"
+
 //#include "../fwd.hpp"
 #include "setup.hpp"
 #include "type_vec.hpp"
@@ -45,7 +50,7 @@ namespace glm{
 namespace detail
 {
 	template <typename T, precision P>
-	struct tvec4
+    struct __builtin_align__(16) tvec4
 	{
 		//////////////////////////////////////
 		// Implementation detail

@@ -1255,8 +1255,8 @@ inline __host__ __device__ float dot(float3 a, float3 b)
 }
 inline __host__ __device__ float dot(float4 a, float4 b)
 {
-    float4 tmp = a * b;
-    return (tmp.x + tmp.y) + (tmp.z + tmp.w);
+    a *= b;
+    return (a.x + a.y) + (a.z + a.w);
 }
 // dot functions chagned end
 
