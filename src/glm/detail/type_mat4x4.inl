@@ -673,25 +673,25 @@ namespace detail
 		return typename tmat4x4<T, P>::col_type(a2);
 */
 
-//        typename tmat4x4<T, P>::col_type const Mov0(v[0]);
-//        typename tmat4x4<T, P>::col_type const Mov1(v[1]);
-//        typename tmat4x4<T, P>::col_type const Mul0 = m[0] * Mov0;
-//        typename tmat4x4<T, P>::col_type const Mul1 = m[1] * Mov1;
-//        typename tmat4x4<T, P>::col_type const Add0 = Mul0 + Mul1;
-//        typename tmat4x4<T, P>::col_type const Mov2(v[2]);
-//        typename tmat4x4<T, P>::col_type const Mov3(v[3]);
-//        typename tmat4x4<T, P>::col_type const Mul2 = m[2] * Mov2;
-//        typename tmat4x4<T, P>::col_type const Mul3 = m[3] * Mov3;
-//        typename tmat4x4<T, P>::col_type const Add1 = Mul2 + Mul3;
-//        typename tmat4x4<T, P>::col_type const Add2 = Add0 + Add1;
-//        return Add2;
+        typename tmat4x4<T, P>::col_type const Mov0(v[0]);
+        typename tmat4x4<T, P>::col_type const Mov1(v[1]);
+        typename tmat4x4<T, P>::col_type const Mul0 = m[0] * Mov0;
+        typename tmat4x4<T, P>::col_type const Mul1 = m[1] * Mov1;
+        typename tmat4x4<T, P>::col_type const Add0 = Mul0 + Mul1;
+        typename tmat4x4<T, P>::col_type const Mov2(v[2]);
+        typename tmat4x4<T, P>::col_type const Mov3(v[3]);
+        typename tmat4x4<T, P>::col_type const Mul2 = m[2] * Mov2;
+        typename tmat4x4<T, P>::col_type const Mul3 = m[3] * Mov3;
+        typename tmat4x4<T, P>::col_type const Add1 = Mul2 + Mul3;
+        typename tmat4x4<T, P>::col_type const Add2 = Add0 + Add1;
+        return Add2;
 
 
-        return typename tmat4x4<T, P>::col_type(
-            m[0][0] * v[0] + m[1][0] * v[1] + m[2][0] * v[2] + m[3][0] * v[3],
-            m[0][1] * v[0] + m[1][1] * v[1] + m[2][1] * v[2] + m[3][1] * v[3],
-            m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2] + m[3][2] * v[3],
-            m[0][3] * v[0] + m[1][3] * v[1] + m[2][3] * v[2] + m[3][3] * v[3]);
+//        return typename tmat4x4<T, P>::col_type(
+//            m[0][0] * v[0] + m[1][0] * v[1] + m[2][0] * v[2] + m[3][0] * v[3],
+//            m[0][1] * v[0] + m[1][1] * v[1] + m[2][1] * v[2] + m[3][1] * v[3],
+//            m[0][2] * v[0] + m[1][2] * v[1] + m[2][2] * v[2] + m[3][2] * v[3],
+//            m[0][3] * v[0] + m[1][3] * v[1] + m[2][3] * v[2] + m[3][3] * v[3]);
 
 	}
 

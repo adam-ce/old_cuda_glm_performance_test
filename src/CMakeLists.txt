@@ -37,7 +37,7 @@ main.cu
 )
 
 #set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-O3 --use_fast_math -gencode arch=compute_20,code=sm_20)
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "--use_fast_math -gencode arch=compute_20,code=sm_20")
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "-use_fast_math -gencode arch=compute_20,code=sm_20")
 
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")

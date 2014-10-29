@@ -42,7 +42,7 @@ __global__ void cuMatrixKernel(const float4 *vectors, mat4 matrix, float4 *resul
         result[i] = matrix * vectors[i];
         if(i > 3) {
             for(int j=0; j<innerLoopSize; j++) {
-                result[i] = matrix * vectors[i];
+                result[i] = matrix * result[i];
                 result[i] += matrix * vectors[i-1];
                 result[i] += matrix * vectors[i-2];
                 result[i] += matrix * vectors[i-3];
@@ -90,7 +90,7 @@ __global__ void glmMatrixKernel(const glm::vec4 *vectors, glm::mat4 matrix, glm:
         result[i] = matrix * vectors[i];
         if(i > 3) {
             for(int j=0; j<innerLoopSize; j++) {
-                result[i] = matrix * vectors[i];
+                result[i] = matrix * result[i];
                 result[i] += matrix * vectors[i-1];
                 result[i] += matrix * vectors[i-2];
                 result[i] += matrix * vectors[i-3];
@@ -134,10 +134,10 @@ __global__ void glmCrossKernel(const glm::vec4 *vectors, glm::vec4 *result, int 
 
 int main(int argc, char *argv[]) {
     glm::mat4 glmMatrix;
-    glmMatrix[0] = glm::vec4(3.14f, 15.f, .92f, .65f);
-    glmMatrix[1] = glm::vec4(.35f, .89f, .79f, .32f);
-    glmMatrix[2] = glm::vec4(.38f, .46f, .26f, .43f);
-    glmMatrix[3] = glm::vec4(.38f, .32f, .79f, .50f);
+    glmMatrix[0] = glm::vec4(1.085f, -.15f, .72f, -0.65f);
+    glmMatrix[1] = glm::vec4(.35f, -.89f, .79f, -.32f);
+    glmMatrix[2] = glm::vec4(.38f, -.46f, .26f, -.83f);
+    glmMatrix[3] = glm::vec4(.38f, -.80f, .90f, -.50f);
 
     mat4 cuMatrix = make_mat4(glmMatrix);
 
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]) {
 
     hce(cudaGetLastError());
     for(int i=0; i<NUM_ELEMENTS; i++) {
-        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.0001f) {
+        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.01f) {
             std::cerr << "error matrix i=" << i << std::endl;
             break;
         }
