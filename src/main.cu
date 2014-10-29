@@ -66,16 +66,13 @@ __global__ void cuDotKernel(const float4 *vectors, float4 *result, int numElemen
     }
 }
 
-__global__ void cuCrossKernel(const float4 *vectors, float4 *result, int numElements, int innerLoopSize) {
+__global__ void cuCrossKernel(const float3 *vectors, float3 *result, int numElements, int innerLoopSize) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if(i < numElements) {
         result[i] = vectors[i];
         if(i>1 && i < NUM_ELEMENTS - 1) {
             for(int j=0; j<innerLoopSize; j++) {
-                float3 tmp1 = make_float3(vectors[i-1]);
-                float3 tmp2 = make_float3(vectors[i]);
-                float3 tmp3 = cross(tmp1, tmp2);
-                result[i] = make_float4(tmp3, tmp3.x);
+                result[i] = cross(vectors[i-1], vectors[i]);
             }
         }
     }
@@ -112,16 +109,13 @@ __global__ void glmDotKernel(const glm::vec4 *vectors, glm::vec4 *result, int nu
     }
 }
 
-__global__ void glmCrossKernel(const glm::vec4 *vectors, glm::vec4 *result, int numElements, int innerLoopSize) {
+__global__ void glmCrossKernel(const glm::vec3 *vectors, glm::vec3 *result, int numElements, int innerLoopSize) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if(i < numElements) {
         result[i] = vectors[i];
         if(i>1 && i < NUM_ELEMENTS - 1) {
             for(int j=0; j<innerLoopSize; j++) {
-                glm::vec3 tmp1 = glm::vec3(vectors[i-1]);
-                glm::vec3 tmp2 = glm::vec3(vectors[i]);
-                glm::vec3 tmp3 = glm::cross(tmp1, tmp2);
-                result[i] = glm::vec4(tmp3, tmp3.x);
+                result[i] = glm::cross(vectors[i-1], vectors[i]);
             }
         }
     }
@@ -155,15 +149,12 @@ void cpuGlmDotKernel(const glm::vec4 *vectors, glm::vec4 *result, int numElement
     }
 }
 
-void cpuGlmCrossKernel(const glm::vec4 *vectors, glm::vec4 *result, int numElements, int innerLoopSize) {
+void cpuGlmCrossKernel(const glm::vec3 *vectors, glm::vec3 *result, int numElements, int innerLoopSize) {
     for(int i=0; i<numElements; i++) {
         result[i] = vectors[i];
         if(i>1 && i < NUM_ELEMENTS - 1) {
             for(int j=0; j<innerLoopSize; j++) {
-                glm::vec3 tmp1 = glm::vec3(vectors[i-1]);
-                glm::vec3 tmp2 = glm::vec3(vectors[i]);
-                glm::vec3 tmp3 = glm::cross(tmp1, tmp2);
-                result[i] = glm::vec4(tmp3, tmp3.x);
+                result[i] = glm::cross(vectors[i-1], vectors[i]);
             }
         }
     }
@@ -181,10 +172,14 @@ int main(int argc, char *argv[]) {
 
     glm::vec4* glmVectors = new glm::vec4[NUM_ELEMENTS];
     float4* cuVectors = new float4[NUM_ELEMENTS];
+    glm::vec3* glmVectors3 = new glm::vec3[NUM_ELEMENTS];
+    float3* cuVectors3 = new float3[NUM_ELEMENTS];
 
     for(int i=0; i<NUM_ELEMENTS; i++) {
         glmVectors[i] = glm::vec4(rand() / (float) RAND_MAX, rand() / (float) RAND_MAX, rand() / (float) RAND_MAX, rand() / (float) RAND_MAX);
         cuVectors[i] = make_float4(glmVectors[i]);
+        glmVectors3[i] = glm::vec3(glmVectors[i]);
+        cuVectors3[i] = make_float3(glmVectors3[i]);
     }
     glmVectors[0] = glm::vec4(1.f, 0.f, 1.f, 0.f);
     glmVectors[1] = glm::vec4(0.f, 1.f, 0.f, 1.f);
@@ -192,6 +187,7 @@ int main(int argc, char *argv[]) {
     cuVectors[1] = make_float4(glmVectors[1]);
 
     glm::vec4* cpuResult = new glm::vec4[NUM_ELEMENTS];
+    glm::vec3* cpuResult3 = new glm::vec3[NUM_ELEMENTS];
 
     size_t glmSize = NUM_ELEMENTS * sizeof(glm::vec4);
     glm::vec4* d_glmVectors;
@@ -207,21 +203,36 @@ int main(int argc, char *argv[]) {
     float4* d_cuResult;
     hce(cudaMalloc(&d_cuResult, cuSize));
 
+
+    size_t glmSize3 = NUM_ELEMENTS * sizeof(glm::vec3);
+    glm::vec3* d_glmVectors3;
+    hce(cudaMalloc(&d_glmVectors3, glmSize3));
+    hce(cudaMemcpy(d_glmVectors3, glmVectors3, NUM_ELEMENTS * sizeof(glm::vec3), cudaMemcpyHostToDevice));
+    glm::vec3* d_glmResult3;
+    hce(cudaMalloc(&d_glmResult3, glmSize3));
+
+    size_t cuSize3 = NUM_ELEMENTS * sizeof(float3);
+    float3* d_cuVectors3;
+    hce(cudaMalloc(&d_cuVectors3, cuSize3));
+    hce(cudaMemcpy(d_cuVectors3, cuVectors3, NUM_ELEMENTS * sizeof(float3), cudaMemcpyHostToDevice));
+    float3* d_cuResult3;
+    hce(cudaMalloc(&d_cuResult3, cuSize3));
+
     int blocksPerGrid = (NUM_ELEMENTS + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, THREADS_PER_BLOCK);
 
     //warmup
     glmMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, glmMatrix, d_glmResult, NUM_ELEMENTS, 10);  hce(cudaDeviceSynchronize());
     glmDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 10);                hce(cudaDeviceSynchronize());
-    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 10);              hce(cudaDeviceSynchronize());
+    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors3, d_glmResult3, NUM_ELEMENTS, 10);              hce(cudaDeviceSynchronize());
 
     cuMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 10);      hce(cudaDeviceSynchronize());
     cuDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 10);                   hce(cudaDeviceSynchronize());
-    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 10);                 hce(cudaDeviceSynchronize());
+    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors3, d_cuResult3, NUM_ELEMENTS, 10);                 hce(cudaDeviceSynchronize());
 
     cpuGlmMatrixKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 10);
     cpuGlmDotKernel(glmVectors, cpuResult, NUM_ELEMENTS, 10);
-    cpuGlmCrossKernel(glmVectors, cpuResult, NUM_ELEMENTS, 10);
+    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 10);
 
     auto timeMatrix0 = std::chrono::high_resolution_clock::now();
 
@@ -281,26 +292,28 @@ int main(int argc, char *argv[]) {
 
     auto timeCross0 = std::chrono::high_resolution_clock::now();
 
-    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors, d_glmResult, NUM_ELEMENTS, 100);     hce(cudaDeviceSynchronize());
+    glmCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_glmVectors3, d_glmResult3, NUM_ELEMENTS, 100);     hce(cudaDeviceSynchronize());
     auto timeCross1 = std::chrono::high_resolution_clock::now();
 
-    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 100);        hce(cudaDeviceSynchronize());
+    cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors3, d_cuResult3, NUM_ELEMENTS, 100);        hce(cudaDeviceSynchronize());
     auto timeCross2 = std::chrono::high_resolution_clock::now();
 
-    cpuGlmCrossKernel(glmVectors, cpuResult, NUM_ELEMENTS, 100);
+    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 100);
     auto timeCross3 = std::chrono::high_resolution_clock::now();
 
     hce(cudaGetLastError());
 
-    hce(cudaMemcpy(glmResult, d_glmResult, glmSize, cudaMemcpyDeviceToHost));
-    hce(cudaMemcpy(cuResult, d_cuResult, glmSize, cudaMemcpyDeviceToHost));
+    glm::vec3* glmResult3 = new glm::vec3[NUM_ELEMENTS];
+    hce(cudaMemcpy(glmResult3, d_glmResult3, glmSize3, cudaMemcpyDeviceToHost));
+    float3* cuResult3 = new float3[NUM_ELEMENTS];
+    hce(cudaMemcpy(cuResult3, d_cuResult3, cuSize3, cudaMemcpyDeviceToHost));
 
     for(int i=0; i<NUM_ELEMENTS; i++) {
-        if(length(cuResult[i] - make_float4(glmResult[i])) > 0.0001f) {
+        if(length(cuResult3[i] - make_float3(glmResult3[i])) > 0.0001f) {
             std::cerr << "error cross i=" << i << std::endl;
             break;
         }
-        if(glm::length(cpuResult[i] - glmResult[i]) > 0.01f) {
+        if(glm::length(cpuResult3[i] - glmResult3[i]) > 0.01f) {
             std::cerr << "error cross i=" << i << std::endl;
             break;
         }
