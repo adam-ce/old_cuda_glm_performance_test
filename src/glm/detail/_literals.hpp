@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_core_literals
+#define glm_core_literals
 
 namespace glm
 {
@@ -46,3 +47,5 @@ namespace glm
 #endif//GLM_CXX11_USER_LITERALS
 
 }//namespace glm
+
+#endif//glm_core_literals

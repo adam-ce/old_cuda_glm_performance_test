@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_core_type_float
+#define glm_core_type_float
 
 #include "setup.hpp"
 
@@ -90,3 +91,5 @@ namespace detail
 	/// @}
 
 }//namespace glm
+
+#endif//glm_core_type_float

@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_detail_intrinsic_matrix
+#define glm_detail_intrinsic_matrix
 
 #include "setup.hpp"
 
@@ -65,3 +66,4 @@ namespace detail
 #include "intrinsic_matrix.inl"
 
 #endif//GLM_ARCH
+#endif//glm_detail_intrinsic_matrix

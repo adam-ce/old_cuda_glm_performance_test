@@ -36,7 +36,8 @@
 /// <glm/gtx/fast_exponential.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_fast_exponential
+#define GLM_GTX_fast_exponential
 
 // Dependency:
 #include "../glm.hpp"
@@ -93,3 +94,5 @@ namespace glm
 }//namespace glm
 
 #include "fast_exponential.inl"
+
+#endif//GLM_GTX_fast_exponential

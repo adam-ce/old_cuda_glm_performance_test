@@ -33,7 +33,8 @@
 /// These functions do not operate component-wise, rather as described in each case.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_CORE_func_packing
+#define GLM_CORE_func_packing
 
 #include "type_vec2.hpp"
 #include "type_vec4.hpp"
@@ -190,3 +191,5 @@ namespace glm
 }//namespace glm
 
 #include "func_packing.inl"
+
+#endif//GLM_CORE_func_packing

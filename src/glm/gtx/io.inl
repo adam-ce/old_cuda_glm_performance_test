@@ -162,6 +162,8 @@ namespace io
 	}
 } // namespace io
 
+namespace detail
+{
 	template <typename CTy, typename CTr, typename T, precision P>
 	GLM_FUNC_QUALIFIER std::basic_ostream<CTy,CTr>& operator<<(std::basic_ostream<CTy,CTr>& os, tquat<T,P> const& a)
 	{
@@ -592,4 +594,5 @@ namespace io
 
 		return os;
 	}
+}//namespace detail
 }//namespace glm

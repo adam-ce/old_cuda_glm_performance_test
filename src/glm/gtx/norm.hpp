@@ -36,7 +36,8 @@
 /// <glm/gtx/norm.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_norm
+#define GLM_GTX_norm
 
 // Dependency:
 #include "../glm.hpp"
@@ -81,44 +82,46 @@ namespace glm
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T l1Norm(
-		tvec3<T, P> const & x,
-		tvec3<T, P> const & y);
+		detail::tvec3<T, P> const & x,
+		detail::tvec3<T, P> const & y);
 		
 	//! Returns the L1 norm of v.
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T l1Norm(
-		tvec3<T, P> const & v);
+		detail::tvec3<T, P> const & v);
 		
 	//! Returns the L2 norm between x and y.
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T l2Norm(
-		tvec3<T, P> const & x,
-		tvec3<T, P> const & y);
+		detail::tvec3<T, P> const & x,
+		detail::tvec3<T, P> const & y);
 		
 	//! Returns the L2 norm of v.
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T l2Norm(
-		tvec3<T, P> const & x);
+		detail::tvec3<T, P> const & x);
 		
 	//! Returns the L norm between x and y.
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T lxNorm(
-		tvec3<T, P> const & x,
-		tvec3<T, P> const & y,
+		detail::tvec3<T, P> const & x,
+		detail::tvec3<T, P> const & y,
 		unsigned int Depth);
 
 	//! Returns the L norm of v.
 	//! From GLM_GTX_norm extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T lxNorm(
-		tvec3<T, P> const & x,
+		detail::tvec3<T, P> const & x,
 		unsigned int Depth);
 
 	/// @}
 }//namespace glm
 
 #include "norm.inl"
+
+#endif//GLM_GTX_norm

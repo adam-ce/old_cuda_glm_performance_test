@@ -36,7 +36,8 @@
 /// <glm/gtx/normal.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_normal
+#define GLM_GTX_normal
 
 // Dependency:
 #include "../glm.hpp"
@@ -53,12 +54,14 @@ namespace glm
 	//! Computes triangle normal from triangle points. 
 	//! From GLM_GTX_normal extension.
 	template <typename T, precision P> 
-	GLM_FUNC_DECL tvec3<T, P> triangleNormal(
-		tvec3<T, P> const & p1, 
-		tvec3<T, P> const & p2, 
-		tvec3<T, P> const & p3);
+	GLM_FUNC_DECL detail::tvec3<T, P> triangleNormal(
+		detail::tvec3<T, P> const & p1, 
+		detail::tvec3<T, P> const & p2, 
+		detail::tvec3<T, P> const & p3);
 
 	/// @}
 }//namespace glm
 
 #include "normal.inl"
+
+#endif//GLM_GTX_normal

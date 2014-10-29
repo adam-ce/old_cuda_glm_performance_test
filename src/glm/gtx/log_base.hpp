@@ -35,7 +35,8 @@
 /// <glm/gtx/log_base.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_log_base
+#define GLM_GTX_log_base
 
 // Dependency:
 #include "../glm.hpp"
@@ -60,3 +61,5 @@ namespace glm
 }//namespace glm
 
 #include "log_base.inl"
+
+#endif//GLM_GTX_log_base

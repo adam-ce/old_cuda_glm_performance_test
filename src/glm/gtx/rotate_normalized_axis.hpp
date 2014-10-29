@@ -37,7 +37,8 @@
 /// <glm/gtx/rotate_normalized_axis.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_rotate_normalized_axis
+#define GLM_GTX_rotate_normalized_axis
 
 // Dependency:
 #include "../glm.hpp"
@@ -62,13 +63,13 @@ namespace glm
 	/// 
 	/// @see gtx_rotate_normalized_axis
 	/// @see - rotate(T angle, T x, T y, T z) 
-	/// @see - rotate(tmat4x4<T, P> const & m, T angle, T x, T y, T z) 
-	/// @see - rotate(T angle, tvec3<T, P> const & v) 
+	/// @see - rotate(detail::tmat4x4<T, P> const & m, T angle, T x, T y, T z) 
+	/// @see - rotate(T angle, detail::tvec3<T, P> const & v) 
 	template <typename T, precision P>
-	GLM_FUNC_DECL tmat4x4<T, P> rotateNormalizedAxis(
-		tmat4x4<T, P> const & m,
+	GLM_FUNC_DECL detail::tmat4x4<T, P> rotateNormalizedAxis(
+		detail::tmat4x4<T, P> const & m,
 		T const & angle,
-		tvec3<T, P> const & axis);
+		detail::tvec3<T, P> const & axis);
 
 	/// Rotates a quaternion from a vector of 3 components normalized axis and an angle.
 	/// 
@@ -78,12 +79,14 @@ namespace glm
 	/// 
 	/// @see gtx_rotate_normalized_axis
 	template <typename T, precision P>
-	GLM_FUNC_DECL tquat<T, P> rotateNormalizedAxis(
-		tquat<T, P> const & q,
+	GLM_FUNC_DECL detail::tquat<T, P> rotateNormalizedAxis(
+		detail::tquat<T, P> const & q,
 		T const & angle,
-		tvec3<T, P> const & axis);
+		detail::tvec3<T, P> const & axis);
 
 	/// @}
 }//namespace glm
 
 #include "rotate_normalized_axis.inl"
+
+#endif//GLM_GTX_rotate_normalized_axis

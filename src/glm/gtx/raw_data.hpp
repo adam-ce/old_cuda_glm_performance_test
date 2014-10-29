@@ -35,7 +35,8 @@
 /// <glm/gtx/raw_data.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_raw_data
+#define GLM_GTX_raw_data
 
 // Dependencies
 #include "../detail/setup.hpp"
@@ -70,3 +71,5 @@ namespace glm
 }// namespace glm
 
 #include "raw_data.inl"
+
+#endif//GLM_GTX_raw_data

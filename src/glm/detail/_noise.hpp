@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_DETAIL_NOISE_INCLUDED
+#define GLM_DETAIL_NOISE_INCLUDED
 
 namespace glm{
 namespace detail
@@ -74,19 +75,19 @@ namespace detail
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P> taylorInvSqrt(tvec2<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec2<T, P> taylorInvSqrt(detail::tvec2<T, P> const & r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec3<T, P> taylorInvSqrt(tvec3<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec3<T, P> taylorInvSqrt(detail::tvec3<T, P> const & r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec4<T, P> taylorInvSqrt(tvec4<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec4<T, P> taylorInvSqrt(detail::tvec4<T, P> const & r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
@@ -99,19 +100,19 @@ namespace detail
 */
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P> fade(tvec2<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec2<T, P> fade(detail::tvec2<T, P> const & t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec3<T, P> fade(tvec3<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec3<T, P> fade(detail::tvec3<T, P> const & t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec4<T, P> fade(tvec4<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec4<T, P> fade(detail::tvec4<T, P> const & t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
@@ -124,4 +125,6 @@ namespace detail
 */
 }//namespace detail
 }//namespace glm
+
+#endif//GLM_DETAIL_NOISE_INCLUDED
 

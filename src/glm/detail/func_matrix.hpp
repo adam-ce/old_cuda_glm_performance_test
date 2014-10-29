@@ -37,7 +37,8 @@
 /// floating point version is shown.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_CORE_func_matrix
+#define GLM_CORE_func_matrix
 
 // Dependencies
 #include "../detail/precision.hpp"
@@ -174,3 +175,5 @@ namespace detail
 }//namespace glm
 
 #include "func_matrix.inl"
+
+#endif//GLM_CORE_func_matrix

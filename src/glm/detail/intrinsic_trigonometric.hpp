@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_detail_intrinsic_trigonometric
+#define glm_detail_intrinsic_trigonometric
 
 #include "setup.hpp"
 
@@ -44,3 +45,4 @@ namespace detail
 #include "intrinsic_trigonometric.inl"
 
 #endif//GLM_ARCH
+#endif//glm_detail_intrinsic_trigonometric

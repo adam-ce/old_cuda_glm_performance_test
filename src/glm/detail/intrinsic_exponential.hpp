@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_detail_intrinsic_exponential
+#define glm_detail_intrinsic_exponential
 
 #include "setup.hpp"
 
@@ -75,3 +76,4 @@ GLM_FUNC_QUALIFIER __m128 sse_normalize_fast_ps(  float * RESTRICT vOut, float *
 }//namespace glm
 
 #endif//GLM_ARCH
+#endif//glm_detail_intrinsic_exponential

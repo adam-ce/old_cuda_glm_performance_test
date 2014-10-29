@@ -36,7 +36,8 @@
 /// <glm/gtx/matrix_cross_product.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_matrix_cross_product
+#define GLM_GTX_matrix_cross_product
 
 // Dependency:
 #include "../glm.hpp"
@@ -53,16 +54,18 @@ namespace glm
 	//! Build a cross product matrix.
 	//! From GLM_GTX_matrix_cross_product extension.
 	template <typename T, precision P>
-	GLM_FUNC_DECL tmat3x3<T, P> matrixCross3(
-		tvec3<T, P> const & x);
+	GLM_FUNC_DECL detail::tmat3x3<T, P> matrixCross3(
+		detail::tvec3<T, P> const & x);
 		
 	//! Build a cross product matrix.
 	//! From GLM_GTX_matrix_cross_product extension.
 	template <typename T, precision P>
-	GLM_FUNC_DECL tmat4x4<T, P> matrixCross4(
-		tvec3<T, P> const & x);
+	GLM_FUNC_DECL detail::tmat4x4<T, P> matrixCross4(
+		detail::tvec3<T, P> const & x);
 
 	/// @}
 }//namespace glm
 
 #include "matrix_cross_product.inl"
+
+#endif//GLM_GTX_matrix_cross_product

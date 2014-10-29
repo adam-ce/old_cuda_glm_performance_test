@@ -35,7 +35,8 @@
 /// <glm/gtx/simd_mat4.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_simd_mat4
+#define GLM_GTX_simd_mat4
 
 // Dependencies
 #include "../detail/setup.hpp"
@@ -60,6 +61,7 @@ namespace detail
 	/// \ingroup gtx_simd_mat4
 	GLM_ALIGNED_STRUCT(16) fmat4x4SIMD
 	{
+		enum ctor{_null};
 		typedef float value_type;
 		typedef fvec4SIMD col_type;
 		typedef fvec4SIMD row_type;
@@ -199,3 +201,5 @@ namespace detail
 #include "simd_mat4.inl"
 
 #endif//(GLM_ARCH != GLM_ARCH_PURE)
+
+#endif//GLM_GTX_simd_mat4

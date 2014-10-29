@@ -10,28 +10,28 @@
 namespace glm
 {
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tmat4x4<T, P> translate(
-		tvec3<T, P> const & v)
+	GLM_FUNC_QUALIFIER detail::tmat4x4<T, P> translate(
+		detail::tvec3<T, P> const & v)
 	{
 		return translate(
-			tmat4x4<T, P>(1.0f), v);
+			detail::tmat4x4<T, P>(1.0f), v);
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tmat4x4<T, P> rotate(
+	GLM_FUNC_QUALIFIER detail::tmat4x4<T, P> rotate(
 		T angle, 
-		tvec3<T, P> const & v)
+		detail::tvec3<T, P> const & v)
 	{
 		return rotate(
-			tmat4x4<T, P>(1), angle, v);
+			detail::tmat4x4<T, P>(1), angle, v);
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tmat4x4<T, P> scale(
-		tvec3<T, P> const & v)
+	GLM_FUNC_QUALIFIER detail::tmat4x4<T, P> scale(
+		detail::tvec3<T, P> const & v)
 	{
 		return scale(
-			tmat4x4<T, P>(1.0f), v);
+			detail::tmat4x4<T, P>(1.0f), v);
 	}
 
 }//namespace glm

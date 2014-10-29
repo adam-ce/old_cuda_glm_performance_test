@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_core_type_gentype
+#define glm_core_type_gentype
 
 namespace glm
 {
@@ -218,3 +219,5 @@ namespace detail
 }//namespace glm
 
 //#include "type_gentype.inl"
+
+#endif//glm_core_type_gentype

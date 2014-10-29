@@ -37,7 +37,8 @@
 /// <glm/gtx/vector_angle.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_vector_angle
+#define GLM_GTX_vector_angle
 
 // Dependency:
 #include "../glm.hpp"
@@ -67,19 +68,21 @@ namespace glm
 	/// @see gtx_vector_angle extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T orientedAngle(
-		tvec2<T, P> const & x,
-		tvec2<T, P> const & y);
+		detail::tvec2<T, P> const & x,
+		detail::tvec2<T, P> const & y);
 
 	//! Returns the oriented angle between two 3d vectors based from a reference axis.
 	//! Parameters need to be normalized.
 	/// @see gtx_vector_angle extension.
 	template <typename T, precision P>
 	GLM_FUNC_DECL T orientedAngle(
-		tvec3<T, P> const & x,
-		tvec3<T, P> const & y,
-		tvec3<T, P> const & ref);
+		detail::tvec3<T, P> const & x,
+		detail::tvec3<T, P> const & y,
+		detail::tvec3<T, P> const & ref);
 
 	/// @}
 }// namespace glm
 
 #include "vector_angle.inl"
+
+#endif//GLM_GTX_vector_angle

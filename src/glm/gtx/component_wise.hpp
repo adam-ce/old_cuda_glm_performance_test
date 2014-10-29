@@ -35,7 +35,8 @@
 /// <glm/gtx/component_wise.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_component_wise
+#define GLM_GTX_component_wise
 
 // Dependencies
 #include "../detail/setup.hpp"
@@ -77,3 +78,5 @@ namespace glm
 }//namespace glm
 
 #include "component_wise.inl"
+
+#endif//GLM_GTX_component_wise

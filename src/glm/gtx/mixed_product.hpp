@@ -35,7 +35,8 @@
 /// <glm/gtx/mixed_product.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_mixed_product
+#define GLM_GTX_mixed_product
 
 // Dependency:
 #include "../glm.hpp"
@@ -52,11 +53,13 @@ namespace glm
 	/// @brief Mixed product of 3 vectors (from GLM_GTX_mixed_product extension)
 	template <typename T, precision P> 
 	GLM_FUNC_DECL T mixedProduct(
-		tvec3<T, P> const & v1, 
-		tvec3<T, P> const & v2, 
-		tvec3<T, P> const & v3);
+		detail::tvec3<T, P> const & v1, 
+		detail::tvec3<T, P> const & v2, 
+		detail::tvec3<T, P> const & v3);
 
 	/// @}
 }// namespace glm
 
 #include "mixed_product.inl"
+
+#endif//GLM_GTX_mixed_product

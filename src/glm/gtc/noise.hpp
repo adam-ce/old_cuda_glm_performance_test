@@ -38,7 +38,8 @@
 /// <glm/gtc/noise.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTC_noise
+#define GLM_GTC_noise
 
 // Dependencies
 #include "../detail/setup.hpp"
@@ -76,3 +77,5 @@ namespace glm
 }//namespace glm
 
 #include "noise.inl"
+
+#endif//GLM_GTC_noise

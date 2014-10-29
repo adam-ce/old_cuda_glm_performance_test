@@ -36,7 +36,8 @@
 /// <glm/gtx/matrix_query.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef GLM_GTX_matrix_query
+#define GLM_GTX_matrix_query
 
 // Dependency:
 #include "../glm.hpp"
@@ -55,17 +56,17 @@ namespace glm
 	/// Return whether a matrix a null matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNull(tmat2x2<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNull(detail::tmat2x2<T, P> const & m, T const & epsilon);
 		
 	/// Return whether a matrix a null matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNull(tmat3x3<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNull(detail::tmat3x3<T, P> const & m, T const & epsilon);
 		
 	/// Return whether a matrix is a null matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNull(tmat4x4<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNull(detail::tmat4x4<T, P> const & m, T const & epsilon);
 			
 	/// Return whether a matrix is an identity matrix.
 	/// From GLM_GTX_matrix_query extension.
@@ -75,17 +76,17 @@ namespace glm
 	/// Return whether a matrix is a normalized matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNormalized(tmat2x2<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNormalized(detail::tmat2x2<T, P> const & m, T const & epsilon);
 
 	/// Return whether a matrix is a normalized matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNormalized(tmat3x3<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNormalized(detail::tmat3x3<T, P> const & m, T const & epsilon);
 
 	/// Return whether a matrix is a normalized matrix.
 	/// From GLM_GTX_matrix_query extension.
 	template<typename T, precision P>
-	GLM_FUNC_DECL bool isNormalized(tmat4x4<T, P> const & m, T const & epsilon);
+	GLM_FUNC_DECL bool isNormalized(detail::tmat4x4<T, P> const & m, T const & epsilon);
 
 	/// Return whether a matrix is an orthonormalized matrix.
 	/// From GLM_GTX_matrix_query extension.
@@ -96,3 +97,5 @@ namespace glm
 }//namespace glm
 
 #include "matrix_query.inl"
+
+#endif//GLM_GTX_matrix_query

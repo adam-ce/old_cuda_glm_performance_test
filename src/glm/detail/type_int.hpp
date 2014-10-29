@@ -26,7 +26,8 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef glm_core_type_int
+#define glm_core_type_int
 
 #include "setup.hpp"
 
@@ -186,3 +187,5 @@ namespace detail
 #endif//GLM_STATIC_ASSERT_NULL
 
 }//namespace glm
+
+#endif//glm_core_type_int
