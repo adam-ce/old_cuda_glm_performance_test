@@ -26,22 +26,20 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef glm_core_type_mat2x3
-#define glm_core_type_mat2x3
+#pragma once
 
 #include "../fwd.hpp"
 #include "type_vec2.hpp"
 #include "type_vec3.hpp"
 #include "type_mat.hpp"
 #include <limits>
+#include <cstddef>
 
-namespace glm{
-namespace detail
+namespace glm
 {
-	template <typename T, precision P>
+	template <typename T, precision P = defaultp>
 	struct tmat2x3
 	{
-		enum ctor{_null};
 		typedef T value_type;
 		typedef std::size_t size_type;
 		typedef tvec3<T, P> col_type;
@@ -49,12 +47,17 @@ namespace detail
 		typedef tmat2x3<T, P> type;
 		typedef tmat3x2<T, P> transpose_type;
 
-		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
+#		ifdef GLM_FORCE_SIZE_FUNC
+			GLM_FUNC_DECL GLM_CONSTEXPR size_t size() const;
+#		else
+			GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
+#		endif//GLM_FORCE_SIZE_FUNC
 
 	private:
-		// Data 
+		/// @cond DETAIL 
 		col_type value[2];
-
+		/// @endcond
+		
 	public:
 		// Constructors
 		GLM_FUNC_DECL tmat2x3();
@@ -62,10 +65,8 @@ namespace detail
 		template <precision Q>
 		GLM_FUNC_DECL tmat2x3(tmat2x3<T, Q> const & m);
 
-		GLM_FUNC_DECL explicit tmat2x3(
-			ctor);
-		GLM_FUNC_DECL explicit tmat2x3(
-			T const & s);
+		GLM_FUNC_DECL explicit tmat2x3(ctor);
+		GLM_FUNC_DECL explicit tmat2x3(T const & s);
 		GLM_FUNC_DECL tmat2x3(
 			T const & x0, T const & y0, T const & z0,
 			T const & x1, T const & y1, T const & z1);
@@ -103,7 +104,6 @@ namespace detail
 		GLM_FUNC_DECL col_type & operator[](length_t i);
 		GLM_FUNC_DECL col_type const & operator[](length_t i) const;
 
-		// Unary updatable operators
 		GLM_FUNC_DECL tmat2x3<T, P> & operator=  (tmat2x3<T, P> const & m);
 		template <typename U> 
 		GLM_FUNC_DECL tmat2x3<T, P> & operator=  (tmat2x3<U, P> const & m);
@@ -200,12 +200,8 @@ namespace detail
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat2x3<T, P> const operator- (
 		tmat2x3<T, P> const & m);
-
-}//namespace detail
 }//namespace glm
 
 #ifndef GLM_EXTERNAL_TEMPLATE
 #include "type_mat2x3.inl"
 #endif
-
-#endif //glm_core_type_mat2x3

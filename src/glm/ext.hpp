@@ -55,8 +55,7 @@
 /// (http://www.opengl.org/discussion_boards/ubbthreads.php?ubb=showprofile&User=22660).
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef GLM_EXT_INCLUDED
-#define GLM_EXT_INCLUDED
+#pragma once
 
 #if(defined(GLM_MESSAGES) && !defined(GLM_MESSAGE_EXT_INCLUDED_DISPLAYED))
 #	define GLM_MESSAGE_EXT_INCLUDED_DISPLAYED
@@ -77,6 +76,7 @@
 #include "./gtc/type_precision.hpp"
 #include "./gtc/type_ptr.hpp"
 #include "./gtc/ulp.hpp"
+#include "./gtc/vec1.hpp"
 
 #include "./gtx/associated_min_max.hpp"
 #include "./gtx/bit.hpp"
@@ -95,7 +95,6 @@
 #include "./gtx/gradient_paint.hpp"
 #include "./gtx/handed_coordinate_space.hpp"
 #include "./gtx/inertia.hpp"
-#include "./gtx/int_10_10_10_2.hpp"
 #include "./gtx/integer.hpp"
 #include "./gtx/intersect.hpp"
 #include "./gtx/log_base.hpp"
@@ -120,19 +119,24 @@
 #include "./gtx/rotate_vector.hpp"
 #include "./gtx/spline.hpp"
 #include "./gtx/std_based_type.hpp"
-#if(!(GLM_COMPILER & GLM_COMPILER_CUDA))
+#if !(GLM_COMPILER & GLM_COMPILER_CUDA)
 #	include "./gtx/string_cast.hpp"
 #endif
 #include "./gtx/transform.hpp"
 #include "./gtx/transform2.hpp"
-#include "./gtx/vec1.hpp"
 #include "./gtx/vector_angle.hpp"
 #include "./gtx/vector_query.hpp"
 #include "./gtx/wrap.hpp"
 
-#if(GLM_ARCH & GLM_ARCH_SSE2)
+#if GLM_HAS_TEMPLATE_ALIASES
+#	include "./gtx/scalar_multiplication.hpp"
+#endif
+
+#if GLM_HAS_RANGE_FOR
+#	include "./gtx/range.hpp"
+#endif
+
+#if GLM_ARCH & GLM_ARCH_SSE2
 #	include "./gtx/simd_vec4.hpp"
 #	include "./gtx/simd_mat4.hpp"
 #endif
-
-#endif //GLM_EXT_INCLUDED

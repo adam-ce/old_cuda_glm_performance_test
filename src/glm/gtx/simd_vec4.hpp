@@ -35,8 +35,7 @@
 /// <glm/gtx/simd_vec4.hpp> need to be included to use these functionalities.
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef GLM_GTX_simd_vec4
-#define GLM_GTX_simd_vec4
+#pragma once
 
 // Dependency:
 #include "../glm.hpp"
@@ -89,7 +88,6 @@ namespace detail
 	/// \ingroup gtx_simd_vec4
 	GLM_ALIGNED_STRUCT(16) fvec4SIMD
 	{
-		enum ctor{null};
 		typedef __m128 value_type;
 		typedef std::size_t size_type;
 		static size_type value_size();
@@ -570,5 +568,3 @@ namespace detail
 #endif
 
 #endif//(GLM_ARCH != GLM_ARCH_PURE)
-
-#endif//GLM_GTX_simd_vec4

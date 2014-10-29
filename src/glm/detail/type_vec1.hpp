@@ -26,8 +26,7 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-#ifndef glm_core_type_gentype1
-#define glm_core_type_gentype1
+#pragma once
 
 #include "../fwd.hpp"
 #include "type_vec.hpp"
@@ -40,16 +39,13 @@
 #endif //GLM_SWIZZLE
 #include <cstddef>
 
-namespace glm{
-namespace detail
+namespace glm
 {
-	template <typename T, precision P>
+	template <typename T, precision P = defaultp>
 	struct tvec1
 	{
 		//////////////////////////////////////
 		// Implementation detail
-
-		enum ctor{_null};
 
 		typedef tvec1<T, P> type;
 		typedef tvec1<bool, P> bool_type;
@@ -58,12 +54,43 @@ namespace detail
 		//////////////////////////////////////
 		// Helper
 
-		GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
+#		ifdef GLM_FORCE_SIZE_FUNC
+			/// Return the count of components of the vector
+			GLM_FUNC_DECL GLM_CONSTEXPR size_t size() const;
+#		else
+			/// Return the count of components of the vector
+			GLM_FUNC_DECL GLM_CONSTEXPR length_t length() const;
+#		endif//GLM_FORCE_SIZE_FUNC
 
 		//////////////////////////////////////
 		// Data
 
-		union {T x, r, s;};
+#		if GLM_HAS_ANONYMOUS_UNION
+			union
+			{
+				T x;
+				T r;
+				T s;
+/*
+#				ifdef GLM_SWIZZLE
+					_GLM_SWIZZLE1_2_MEMBERS(T, P, tvec2, x)
+					_GLM_SWIZZLE1_2_MEMBERS(T, P, tvec2, r)
+					_GLM_SWIZZLE1_2_MEMBERS(T, P, tvec2, s)
+					_GLM_SWIZZLE1_3_MEMBERS(T, P, tvec3, x)
+					_GLM_SWIZZLE1_3_MEMBERS(T, P, tvec3, r)
+					_GLM_SWIZZLE1_3_MEMBERS(T, P, tvec3, s)
+					_GLM_SWIZZLE1_4_MEMBERS(T, P, tvec4, x)
+					_GLM_SWIZZLE1_4_MEMBERS(T, P, tvec4, r)
+					_GLM_SWIZZLE1_4_MEMBERS(T, P, tvec4, s)
+#				endif//GLM_SWIZZLE*/
+			};
+#		else
+			union {T x, r, s;};
+/*
+#			ifdef GLM_SWIZZLE
+				GLM_SWIZZLE_GEN_VEC_FROM_VEC1(T, P, tvec2, tvec2, tvec3, tvec4)
+#			endif//GLM_SWIZZLE*/
+#		endif
 
 		//////////////////////////////////////
 		// Accesses
@@ -82,10 +109,8 @@ namespace detail
 		//////////////////////////////////////
 		// Explicit basic constructors
 
-		GLM_FUNC_DECL explicit tvec1(
-			ctor);
-		GLM_FUNC_DECL tvec1(
-			T const & s);
+		GLM_FUNC_DECL explicit tvec1(ctor);
+		GLM_FUNC_DECL explicit tvec1(T const & s);
 
 		//////////////////////////////////////
 		// Conversion vector constructors
@@ -104,12 +129,23 @@ namespace detail
 		GLM_FUNC_DECL explicit tvec1(tvec4<U, Q> const & v);
 
 		//////////////////////////////////////
+		// Swizzle constructors
+
+#		if(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
+			template <int E0>
+			GLM_FUNC_DECL tvec1(detail::_swizzle<1, T, P, tvec1<T, P>, E0, -1,-2,-3> const & that)
+			{
+				*this = that();
+			}
+#		endif//(GLM_HAS_ANONYMOUS_UNION && defined(GLM_SWIZZLE))
+
+		//////////////////////////////////////
 		// Unary arithmetic operators
 
-		GLM_FUNC_DECL tvec1<T, P> & operator= (tvec1<T, P> const & v);
-		template <typename U> 
-		GLM_FUNC_DECL tvec1<T, P> & operator= (tvec1<U, P> const & v);
+		GLM_FUNC_DECL tvec1<T, P> & operator=(tvec1<T, P> const & v);
 
+		template <typename U> 
+		GLM_FUNC_DECL tvec1<T, P> & operator=(tvec1<U, P> const & v);
 		template <typename U> 
 		GLM_FUNC_DECL tvec1<T, P> & operator+=(U const & s);
 		template <typename U> 
@@ -266,12 +302,8 @@ namespace detail
 
 	template <typename T, precision P> 
 	GLM_FUNC_DECL tvec1<T, P> operator~(tvec1<T, P> const & v);
-
-}//namespace detail
 }//namespace glm
 
 #ifndef GLM_EXTERNAL_TEMPLATE
 #include "type_vec1.inl"
 #endif//GLM_EXTERNAL_TEMPLATE
-
-#endif//glm_core_type_gentype1

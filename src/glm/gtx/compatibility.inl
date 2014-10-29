@@ -7,6 +7,8 @@
 // File    : glm/gtx/compatibility.inl
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+#include <limits>
+
 namespace glm
 {
 	// isfinite
@@ -21,34 +23,34 @@ namespace glm
 #		elif(GLM_COMPILER & GLM_COMPILER_GCC && GLM_PLATFORM & GLM_PLATFORM_ANDROID)
 			return _isfinite(x) != 0;
 #		else
-			return isfinite(x) != 0;
+			return x >= std::numeric_limits<genType>::min() && x <= std::numeric_limits<genType>::max();
 #		endif
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec2<bool, P> isfinite(
-		detail::tvec2<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec2<bool, P> isfinite(
+		tvec2<T, P> const & x)
 	{
-		return detail::tvec2<bool, P>(
+		return tvec2<bool, P>(
 			isfinite(x.x),
 			isfinite(x.y));
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec3<bool, P> isfinite(
-		detail::tvec3<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec3<bool, P> isfinite(
+		tvec3<T, P> const & x)
 	{
-		return detail::tvec3<bool, P>(
+		return tvec3<bool, P>(
 			isfinite(x.x),
 			isfinite(x.y),
 			isfinite(x.z));
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec4<bool, P> isfinite(
-		detail::tvec4<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec4<bool, P> isfinite(
+		tvec4<T, P> const & x)
 	{
-		return detail::tvec4<bool, P>(
+		return tvec4<bool, P>(
 			isfinite(x.x),
 			isfinite(x.y),
 			isfinite(x.z),
