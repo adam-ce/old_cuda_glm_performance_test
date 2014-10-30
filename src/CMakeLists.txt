@@ -37,7 +37,7 @@ main.cu
 )
 
 #set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-O3 --use_fast_math -gencode arch=compute_20,code=sm_20)
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "-use_fast_math -gencode arch=compute_20,code=sm_20")
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "-g -use_fast_math -gencode arch=compute_20,code=sm_20")
 
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -48,10 +48,12 @@ else()
 endif()
 
 cuda_add_executable(cudaGlmPerfTest ${project_SRCS})
+cuda_add_executable(compoundTest compound.cu)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBS ${LIBS})
-	target_link_libraries(cudaGlmPerfTest ${LIBS})
+    target_link_libraries(cudaGlmPerfTest ${LIBS})
+    target_link_libraries(compoundTest ${LIBS})
 else()
     set(LIBS ${LIBS})
 endif()

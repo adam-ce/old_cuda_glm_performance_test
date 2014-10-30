@@ -25,7 +25,7 @@
 #include <chrono>
 #include <glm/gtx/matrix_major_storage.hpp>
 
-#define NUM_ELEMENTS 2000000
+#define NUM_ELEMENTS 5000000
 #define THREADS_PER_BLOCK 256
 
 //handle cuda errors
@@ -230,9 +230,9 @@ int main(int argc, char *argv[]) {
     cuDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 10);                   hce(cudaDeviceSynchronize());
     cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors3, d_cuResult3, NUM_ELEMENTS, 10);                 hce(cudaDeviceSynchronize());
 
-    cpuGlmMatrixKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 10);
-    cpuGlmDotKernel(glmVectors, cpuResult, NUM_ELEMENTS, 10);
-    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 10);
+//    cpuGlmMatrixKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 10);
+//    cpuGlmDotKernel(glmVectors, cpuResult, NUM_ELEMENTS, 10);
+//    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 10);
 
     auto timeMatrix0 = std::chrono::high_resolution_clock::now();
 
@@ -242,7 +242,7 @@ int main(int argc, char *argv[]) {
     cuMatrixKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, cuMatrix, d_cuResult, NUM_ELEMENTS, 100);     hce(cudaDeviceSynchronize());
     auto timeMatrix2 = std::chrono::high_resolution_clock::now();
 
-    cpuGlmMatrixKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 100);
+//    cpuGlmMatrixKernel(glmVectors, glmMatrix, cpuResult, NUM_ELEMENTS, 100);
     auto timeMatrix3 = std::chrono::high_resolution_clock::now();
 
     glm::vec4* glmResult = new glm::vec4[NUM_ELEMENTS];
@@ -270,7 +270,7 @@ int main(int argc, char *argv[]) {
     cuDotKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors, d_cuResult, NUM_ELEMENTS, 100);          hce(cudaDeviceSynchronize());
     auto timeDot2 = std::chrono::high_resolution_clock::now();
 
-    cpuGlmDotKernel(glmVectors, cpuResult, NUM_ELEMENTS, 100);
+//    cpuGlmDotKernel(glmVectors, cpuResult, NUM_ELEMENTS, 100);
     auto timeDot3 = std::chrono::high_resolution_clock::now();
 
     hce(cudaGetLastError());
@@ -298,7 +298,7 @@ int main(int argc, char *argv[]) {
     cuCrossKernel<<<blocksPerGrid, THREADS_PER_BLOCK>>>(d_cuVectors3, d_cuResult3, NUM_ELEMENTS, 100);        hce(cudaDeviceSynchronize());
     auto timeCross2 = std::chrono::high_resolution_clock::now();
 
-    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 100);
+//    cpuGlmCrossKernel(glmVectors3, cpuResult3, NUM_ELEMENTS, 100);
     auto timeCross3 = std::chrono::high_resolution_clock::now();
 
     hce(cudaGetLastError());
