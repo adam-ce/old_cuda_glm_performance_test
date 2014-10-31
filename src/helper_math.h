@@ -1480,6 +1480,11 @@ inline __host__ mat4 make_mat4(glm::mat4 m) {
     return n;
 }
 
+inline bool operator != (const uchar4& a, const uchar4& b) {
+    if(a.x != b.x || a.y != b.y || a.z != b.z || a.w != b.w) return true;
+    return false;
+}
+
 inline __device__ __host__ float4 operator * (mat4 m, float4 v) {
     return make_float4(m.r0.x*v.x + m.r0.y*v.y + m.r0.z*v.z + m.r0.w*v.w,
                        m.r1.x*v.x + m.r1.y*v.y + m.r1.z*v.z + m.r1.w*v.w,

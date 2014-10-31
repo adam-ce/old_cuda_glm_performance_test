@@ -36,6 +36,10 @@ set(project_SRCS
 main.cu
 )
 
+set(compoundTest_SRCS
+compound.cu
+)
+
 #set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-O3 --use_fast_math -gencode arch=compute_20,code=sm_20)
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "-g -use_fast_math -gencode arch=compute_20,code=sm_20")
 
@@ -48,7 +52,7 @@ else()
 endif()
 
 cuda_add_executable(cudaGlmPerfTest ${project_SRCS})
-cuda_add_executable(compoundTest compound.cu)
+cuda_add_executable(compoundTest ${compoundTest_SRCS})
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBS ${LIBS})
