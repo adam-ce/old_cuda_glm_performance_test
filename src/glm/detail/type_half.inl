@@ -134,7 +134,7 @@ namespace detail
 		return Result.f;
 	}
 
-	GLM_FUNC_QUALIFIER hdata toFloat16(float const & f)
+	GLM_FUNC_QUALIFIER hdata toFloat16(float GLM_REFERENCE f)
 	{
 		uif32 Entry;
 		Entry.f = f;

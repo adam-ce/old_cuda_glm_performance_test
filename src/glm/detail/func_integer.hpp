@@ -55,8 +55,8 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genUType>
 	GLM_FUNC_DECL genUType uaddCarry(
-		genUType const & x,
-		genUType const & y,
+		genUType GLM_REFERENCE x,
+		genUType GLM_REFERENCE y,
 		genUType & carry);
 
 	/// Subtracts the 32-bit unsigned integer y from x, returning
@@ -69,8 +69,8 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genUType>
 	GLM_FUNC_DECL genUType usubBorrow(
-		genUType const & x,
-		genUType const & y,
+		genUType GLM_REFERENCE x,
+		genUType GLM_REFERENCE y,
 		genUType & borrow);
 		
 	/// Multiplies 32-bit integers x and y, producing a 64-bit
@@ -83,8 +83,8 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genUType>
 	GLM_FUNC_DECL void umulExtended(
-		genUType const & x,
-		genUType const & y,
+		genUType GLM_REFERENCE x,
+		genUType GLM_REFERENCE y,
 		genUType & msb,
 		genUType & lsb);
 		
@@ -98,8 +98,8 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genIType>
 	GLM_FUNC_DECL void imulExtended(
-		genIType const & x,
-		genIType const & y,
+		genIType GLM_REFERENCE x,
+		genIType GLM_REFERENCE y,
 		genIType & msb,
 		genIType & lsb);
 
@@ -120,9 +120,9 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genIUType>
 	GLM_FUNC_DECL genIUType bitfieldExtract(
-		genIUType const & Value,
-		int const & Offset,
-		int const & Bits);
+		genIUType GLM_REFERENCE Value,
+		int GLM_REFERENCE Offset,
+		int GLM_REFERENCE Bits);
 
 	/// Returns the insertion the bits least-significant bits of insert into base.
 	///
@@ -140,10 +140,10 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genIUType>
 	GLM_FUNC_DECL genIUType bitfieldInsert(
-		genIUType const & Base,
-		genIUType const & Insert,
-		int const & Offset,
-		int const & Bits);
+		genIUType GLM_REFERENCE Base,
+		genIUType GLM_REFERENCE Insert,
+		int GLM_REFERENCE Offset,
+		int GLM_REFERENCE Bits);
 
 	/// Returns the reversal of the bits of value. 
 	/// The bit numbered n of the result will be taken from bit (bits - 1) - n of value, 
@@ -154,7 +154,7 @@ namespace glm
 	/// @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/bitfieldReverse.xml">GLSL bitfieldReverse man page</a>
 	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.8 Integer Functions</a>
 	template <typename genIUType>
-	GLM_FUNC_DECL genIUType bitfieldReverse(genIUType const & Value);
+	GLM_FUNC_DECL genIUType bitfieldReverse(genIUType GLM_REFERENCE Value);
 		
 	/// Returns the number of bits set to 1 in the binary representation of value.
 	///
@@ -165,7 +165,7 @@ namespace glm
 	///
 	/// @todo Clarify the declaration to specify that scalars are suported.
 	template <typename T, template <typename> class genIUType>
-	GLM_FUNC_DECL typename genIUType<T>::signed_type bitCount(genIUType<T> const & Value);
+	GLM_FUNC_DECL typename genIUType<T>::signed_type bitCount(genIUType<T> GLM_REFERENCE Value);
 
 	/// Returns the bit number of the least significant bit set to
 	/// 1 in the binary representation of value. 
@@ -178,7 +178,7 @@ namespace glm
 	///
 	/// @todo Clarify the declaration to specify that scalars are suported.
 	template <typename T, template <typename> class genIUType>
-	GLM_FUNC_DECL typename genIUType<T>::signed_type findLSB(genIUType<T> const & Value);
+	GLM_FUNC_DECL typename genIUType<T>::signed_type findLSB(genIUType<T> GLM_REFERENCE Value);
 
 	/// Returns the bit number of the most significant bit in the binary representation of value.
 	/// For positive integers, the result will be the bit number of the most significant bit set to 1. 
@@ -192,7 +192,7 @@ namespace glm
 	///
 	/// @todo Clarify the declaration to specify that scalars are suported.
 	template <typename T, template <typename> class genIUType>
-	GLM_FUNC_DECL typename genIUType<T>::signed_type findMSB(genIUType<T> const & Value);
+	GLM_FUNC_DECL typename genIUType<T>::signed_type findMSB(genIUType<T> GLM_REFERENCE Value);
 
 	/// @}
 }//namespace glm

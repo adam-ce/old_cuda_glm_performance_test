@@ -41,7 +41,7 @@ struct material
 	glm::vec4 diffuse; // Dcm
 	glm::vec4 specular; // Scm
 	float shininess; // Srm
-};
+};
 struct light
 {
 	glm::vec4 ambient; // Acli
@@ -58,7 +58,7 @@ struct light
 	float constantAttenuation; // K0
 	float linearAttenuation; // K1
 	float quadraticAttenuation;// K2
-};
+};
 
 // Sample 1
 #include <glm/vec3.hpp>// glm::vec3
@@ -66,9 +66,9 @@ struct light
 
 glm::vec3 computeNormal
 (
-	glm::vec3 const & a,
-	glm::vec3 const & b,
-	glm::vec3 const & c
+	glm::vec3 GLM_REFERENCE a,
+	glm::vec3 GLM_REFERENCE b,
+	glm::vec3 GLM_REFERENCE c
 )
 {
 	return glm::normalize(glm::cross(c - a, b - a));
@@ -84,7 +84,7 @@ void glUniformMatrix4fv(GLuint, int, int, float*){}
 #include <glm/mat4x4.hpp> // glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
-void func(GLuint LocationMVP, float Translate, glm::vec2 const & Rotate)
+void func(GLuint LocationMVP, float Translate, glm::vec2 GLM_REFERENCE Rotate)
 {
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
 	glm::mat4 ViewTranslate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -Translate));
@@ -152,10 +152,10 @@ struct intersection
 #include <glm/gtc/random.hpp>// glm::vecRand3
 glm::vec3 lighting
 (
-	intersection const & Intersection,
-	material const & Material,
-	light const & Light,
-	glm::vec3 const & View
+	intersection GLM_REFERENCE Intersection,
+	material GLM_REFERENCE Material,
+	light GLM_REFERENCE Light,
+	glm::vec3 GLM_REFERENCE View
 )
 {
 	glm::vec3 Color(0.0f);

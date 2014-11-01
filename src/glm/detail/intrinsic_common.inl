@@ -299,7 +299,7 @@ GLM_FUNC_QUALIFIER __m128 sse_ssp_ps(__m128 edge0, __m128 edge1, __m128 x)
 
 // SSE scalar reciprocal sqrt using rsqrt op, plus one Newton-Rhaphson iteration
 // By Elan Ruskin, http://assemblyrequired.crashworks.org/
-GLM_FUNC_QUALIFIER __m128 sse_sqrt_wip_ss(__m128 const & x)
+GLM_FUNC_QUALIFIER __m128 sse_sqrt_wip_ss(__m128 GLM_REFERENCE x)
 {
 	__m128 recip = _mm_rsqrt_ss(x);  // "estimate" opcode
 	const static __m128 three = {3, 3, 3, 3}; // aligned consts for fast load

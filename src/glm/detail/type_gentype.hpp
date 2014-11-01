@@ -68,8 +68,8 @@ namespace detail
 		typedef TYPE<VALTYPE> const * const const_pointer_const;
 		typedef TYPE<VALTYPE> * const pointer_const;
 		typedef TYPE<VALTYPE> & reference;
-		typedef TYPE<VALTYPE> const & const_reference;
-		typedef TYPE<VALTYPE> const & param_type;
+        typedef TYPE<VALTYPE> GLM_REFERENCE const_reference;
+        typedef TYPE<VALTYPE> GLM_REFERENCE param_type;
 
 		//////////////////////////////////////
 		// Address (Implementation details)
@@ -130,33 +130,33 @@ namespace detail
 		//////////////////////////////////////
 		// Constructors
 		base();
-		base(class_type const & m);
+        base(class_type GLM_REFERENCE m);
 
-		explicit base(T const & x);
+        explicit base(T GLM_REFERENCE x);
 		explicit base(value_type const * const x);
 		explicit base(col_type const * const x);
 
 		//////////////////////////////////////
 		// Conversions
 		template <typename vU, uint cU, uint rU, profile pU>
-		explicit base(base<vU, cU, rU, pU> const & m);
+        explicit base(base<vU, cU, rU, pU> GLM_REFERENCE m);
 
 		//////////////////////////////////////
 		// Accesses
 		col_type& operator[](size_type i);
-		col_type const & operator[](size_type i) const;
+        col_type GLM_REFERENCE operator[](size_type i) const;
 
 		//////////////////////////////////////
 		// Unary updatable operators
-		class_type& operator=  (class_type const & x);
-		class_type& operator+= (T const & x);
-		class_type& operator+= (class_type const & x);
-		class_type& operator-= (T const & x);
-		class_type& operator-= (class_type const & x);
-		class_type& operator*= (T const & x);
-		class_type& operator*= (class_type const & x);
-		class_type& operator/= (T const & x);
-		class_type& operator/= (class_type const & x);
+        class_type& operator=  (class_type GLM_REFERENCE x);
+        class_type& operator+= (T GLM_REFERENCE x);
+        class_type& operator+= (class_type GLM_REFERENCE x);
+        class_type& operator-= (T GLM_REFERENCE x);
+        class_type& operator-= (class_type GLM_REFERENCE x);
+        class_type& operator*= (T GLM_REFERENCE x);
+        class_type& operator*= (class_type GLM_REFERENCE x);
+        class_type& operator/= (T GLM_REFERENCE x);
+        class_type& operator/= (class_type GLM_REFERENCE x);
 		class_type& operator++ ();
 		class_type& operator-- ();
 	};

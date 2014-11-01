@@ -36,7 +36,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType radians
 	(
-		genType const & degrees
+		genType GLM_REFERENCE degrees
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'radians' only accept floating-point input");
@@ -50,7 +50,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType degrees
 	(
-		genType const & radians
+		genType GLM_REFERENCE radians
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'degrees' only accept floating-point input");
@@ -64,7 +64,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType sin
 	(
-		genType const & angle
+		genType GLM_REFERENCE angle
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'sin' only accept floating-point input");
@@ -76,7 +76,7 @@ namespace glm
 
 	// cos
 	template <typename genType>
-	GLM_FUNC_QUALIFIER genType cos(genType const & angle)
+	GLM_FUNC_QUALIFIER genType cos(genType GLM_REFERENCE angle)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'cos' only accept floating-point input");
 
@@ -89,7 +89,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType tan
 	(
-		genType const & angle
+		genType GLM_REFERENCE angle
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'tan' only accept floating-point input");
@@ -103,7 +103,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType asin
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'asin' only accept floating-point input");
@@ -117,7 +117,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType acos
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'acos' only accept floating-point input");
@@ -131,8 +131,8 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType atan
 	(
-		genType const & y, 
-		genType const & x
+		genType GLM_REFERENCE y, 
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'atan' only accept floating-point input");
@@ -145,7 +145,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType atan
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'atan' only accept floating-point input");
@@ -159,7 +159,7 @@ namespace glm
 	template <typename genType> 
 	GLM_FUNC_QUALIFIER genType sinh
 	(
-		genType const & angle
+		genType GLM_REFERENCE angle
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'sinh' only accept floating-point input");
@@ -173,7 +173,7 @@ namespace glm
 	template <typename genType> 
 	GLM_FUNC_QUALIFIER genType cosh
 	(
-		genType const & angle
+		genType GLM_REFERENCE angle
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'cosh' only accept floating-point input");
@@ -187,7 +187,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType tanh
 	(
-		genType const & angle
+		genType GLM_REFERENCE angle
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'tanh' only accept floating-point input");
@@ -201,7 +201,7 @@ namespace glm
 	template <typename genType> 
 	GLM_FUNC_QUALIFIER genType asinh
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'asinh' only accept floating-point input");
@@ -215,7 +215,7 @@ namespace glm
 	template <typename genType> 
 	GLM_FUNC_QUALIFIER genType acosh
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'acosh' only accept floating-point input");
@@ -231,7 +231,7 @@ namespace glm
 	template <typename genType>
 	GLM_FUNC_QUALIFIER genType atanh
 	(
-		genType const & x
+		genType GLM_REFERENCE x
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<genType>::is_iec559, "'atanh' only accept floating-point input");

@@ -147,7 +147,32 @@ time for cuda:  416 milliseconds
 time for glm:   378 milliseconds
 time for cuda:  370 milliseconds
 
-
+## glm0954, all of the above + replaced most references with GLM_REFERENCE, left GLM_REFERENCE blank and therefore effectively removed all references ##
+#test 1
+CUDA kernel launch with 19532 blocks of 256 threads
+time for cuda glm (matrix):         546 milliseconds
+time for cuda helper math (matrix): 654 milliseconds
+time for cuda glm (dot):            476 milliseconds
+time for cuda helper math (dot):    486 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+ 
+#test 2a (4 different launches)
+time for glm:   467 milliseconds
+time for cuda:  414 milliseconds
+ 
+time for glm:   469 milliseconds
+time for cuda:  417 milliseconds
+ 
+time for glm:   483 milliseconds
+time for cuda:  438 milliseconds
+ 
+time for glm:   342 milliseconds
+time for cuda:  351 milliseconds
+ 
+#test 2b
+time for glm:   373 milliseconds
+time for cuda:  370 milliseconds
 
 
 

@@ -33,8 +33,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type lessThan
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer,
@@ -51,8 +51,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type lessThanEqual
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer,
@@ -68,8 +68,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type greaterThan
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer,
@@ -85,8 +85,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type greaterThanEqual
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		GLM_STATIC_ASSERT(std::numeric_limits<T>::is_iec559 || std::numeric_limits<T>::is_integer,
@@ -102,8 +102,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type equal
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		assert(x.length() == y.length());
@@ -117,8 +117,8 @@ namespace glm
 	template <typename T, precision P, template <typename, precision> class vecType>
 	GLM_FUNC_QUALIFIER typename vecType<T, P>::bool_type notEqual
 	(
-		vecType<T, P> const & x,
-		vecType<T, P> const & y
+		vecType<T, P> GLM_REFERENCE x,
+		vecType<T, P> GLM_REFERENCE y
 	)
 	{
 		assert(x.length() == y.length());
@@ -130,7 +130,7 @@ namespace glm
 	}
 
 	template <precision P, template <typename, precision> class vecType>
-	GLM_FUNC_QUALIFIER bool any(vecType<bool, P> const & v)
+	GLM_FUNC_QUALIFIER bool any(vecType<bool, P> GLM_REFERENCE v)
 	{
 		bool Result = false;
 		for(int i = 0; i < v.length(); ++i)
@@ -139,7 +139,7 @@ namespace glm
 	}
 
 	template <precision P, template <typename, precision> class vecType>
-	GLM_FUNC_QUALIFIER bool all(vecType<bool, P> const & v)
+	GLM_FUNC_QUALIFIER bool all(vecType<bool, P> GLM_REFERENCE v)
 	{
 		bool Result = true;
 		for(int i = 0; i < v.length(); ++i)
@@ -148,7 +148,7 @@ namespace glm
 	}
 
 	template <precision P, template <typename, precision> class vecType>
-	GLM_FUNC_QUALIFIER vecType<bool, P> not_(vecType<bool, P> const & v)
+	GLM_FUNC_QUALIFIER vecType<bool, P> not_(vecType<bool, P> GLM_REFERENCE v)
 	{
 		typename vecType<bool, P>::bool_type Result(vecType<bool, P>::_null);
 		for(int i = 0; i < v.length(); ++i)

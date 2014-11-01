@@ -65,15 +65,15 @@ namespace detail
 		GLM_FUNC_DECL explicit tmat3x2(
 			ctor);
 		GLM_FUNC_DECL explicit tmat3x2(
-			T const & s);
+            T GLM_REFERENCE s);
 		GLM_FUNC_DECL tmat3x2(
-			T const & x0, T const & y0,
-			T const & x1, T const & y1,
-			T const & x2, T const & y2);
+            T GLM_REFERENCE x0, T GLM_REFERENCE y0,
+            T GLM_REFERENCE x1, T GLM_REFERENCE y1,
+            T GLM_REFERENCE x2, T GLM_REFERENCE y2);
 		GLM_FUNC_DECL tmat3x2(
-			col_type const & v0,
-			col_type const & v1,
-			col_type const & v2);
+            col_type GLM_REFERENCE v0,
+            col_type GLM_REFERENCE v1,
+            col_type GLM_REFERENCE v2);
 
 		//////////////////////////////////////
 		// Conversions
@@ -82,45 +82,45 @@ namespace detail
 			typename X2, typename Y2,
 			typename X3, typename Y3>
 		GLM_FUNC_DECL tmat3x2(
-			X1 const & x1, Y1 const & y1,
-			X2 const & x2, Y2 const & y2,
-			X3 const & x3, Y3 const & y3);
+            X1 GLM_REFERENCE x1, Y1 GLM_REFERENCE y1,
+            X2 GLM_REFERENCE x2, Y2 GLM_REFERENCE y2,
+            X3 GLM_REFERENCE x3, Y3 GLM_REFERENCE y3);
 			
 		template <typename V1, typename V2, typename V3>
 		GLM_FUNC_DECL tmat3x2(
-			tvec2<V1, P> const & v1,
-			tvec2<V2, P> const & v2,
-			tvec2<V3, P> const & v3);
+            tvec2<V1, P> GLM_REFERENCE v1,
+            tvec2<V2, P> GLM_REFERENCE v2,
+            tvec2<V3, P> GLM_REFERENCE v3);
 
 		// Matrix conversions
 		template <typename U, precision Q>
-		GLM_FUNC_DECL explicit tmat3x2(tmat3x2<U, Q> const & m);
+        GLM_FUNC_DECL explicit tmat3x2(tmat3x2<U, Q> GLM_REFERENCE m);
 
-		GLM_FUNC_DECL explicit tmat3x2(tmat2x2<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat3x3<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat4x4<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat2x3<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat2x4<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat3x4<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat4x2<T, P> const & x);
-		GLM_FUNC_DECL explicit tmat3x2(tmat4x3<T, P> const & x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat2x2<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat3x3<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat4x4<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat2x3<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat2x4<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat3x4<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat4x2<T, P> GLM_REFERENCE x);
+        GLM_FUNC_DECL explicit tmat3x2(tmat4x3<T, P> GLM_REFERENCE x);
 
 		// Accesses
 		GLM_FUNC_DECL col_type & operator[](length_t i);
-		GLM_FUNC_DECL col_type const & operator[](length_t i) const;
+        GLM_FUNC_DECL col_type GLM_REFERENCE operator[](length_t i) const;
 
 		// Unary updatable operators
-		GLM_FUNC_DECL tmat3x2<T, P> & operator=  (tmat3x2<T, P> const & m);
+        GLM_FUNC_DECL tmat3x2<T, P> & operator=  (tmat3x2<T, P> GLM_REFERENCE m);
 		template <typename U> 
-		GLM_FUNC_DECL tmat3x2<T, P> & operator=  (tmat3x2<U, P> const & m);
+        GLM_FUNC_DECL tmat3x2<T, P> & operator=  (tmat3x2<U, P> GLM_REFERENCE m);
 		template <typename U> 
 		GLM_FUNC_DECL tmat3x2<T, P> & operator+= (U s);
 		template <typename U> 
-		GLM_FUNC_DECL tmat3x2<T, P> & operator+= (tmat3x2<U, P> const & m);
+        GLM_FUNC_DECL tmat3x2<T, P> & operator+= (tmat3x2<U, P> GLM_REFERENCE m);
 		template <typename U> 
 		GLM_FUNC_DECL tmat3x2<T, P> & operator-= (U s);
 		template <typename U> 
-		GLM_FUNC_DECL tmat3x2<T, P> & operator-= (tmat3x2<U, P> const & m);
+        GLM_FUNC_DECL tmat3x2<T, P> & operator-= (tmat3x2<U, P> GLM_REFERENCE m);
 		template <typename U> 
 		GLM_FUNC_DECL tmat3x2<T, P> & operator*= (U s);
 		template <typename U> 
@@ -138,73 +138,73 @@ namespace detail
 	// Binary operators
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator+ (
-		tmat3x2<T, P> const & m,
-		T const & s);
+        tmat3x2<T, P> GLM_REFERENCE m,
+        T GLM_REFERENCE s);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator+ (
-		tmat3x2<T, P> const & m1,
-		tmat3x2<T, P> const & m2);
+        tmat3x2<T, P> GLM_REFERENCE m1,
+        tmat3x2<T, P> GLM_REFERENCE m2);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator- (
-		tmat3x2<T, P> const & m,
-		T const & s);
+        tmat3x2<T, P> GLM_REFERENCE m,
+        T GLM_REFERENCE s);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator- (
-		tmat3x2<T, P> const & m1,
-		tmat3x2<T, P> const & m2);
+        tmat3x2<T, P> GLM_REFERENCE m1,
+        tmat3x2<T, P> GLM_REFERENCE m2);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator* (
-		tmat3x2<T, P> const & m,
-		T const & s);
+        tmat3x2<T, P> GLM_REFERENCE m,
+        T GLM_REFERENCE s);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator* (
-		T const & s,
-		tmat3x2<T, P> const & m);
+        T GLM_REFERENCE s,
+        tmat3x2<T, P> GLM_REFERENCE m);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL typename tmat3x2<T, P>::col_type operator* (
-		tmat3x2<T, P> const & m,
-		typename tmat3x2<T, P>::row_type const & v);
+        tmat3x2<T, P> GLM_REFERENCE m,
+        typename tmat3x2<T, P>::row_type GLM_REFERENCE v);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL typename tmat3x2<T, P>::row_type operator* (
-		typename tmat3x2<T, P>::col_type const & v,
-		tmat3x2<T, P> const & m);
+        typename tmat3x2<T, P>::col_type GLM_REFERENCE v,
+        tmat3x2<T, P> GLM_REFERENCE m);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat2x2<T, P> operator* (
-		tmat3x2<T, P> const & m1,
-		tmat2x3<T, P> const & m2);
+        tmat3x2<T, P> GLM_REFERENCE m1,
+        tmat2x3<T, P> GLM_REFERENCE m2);
 		
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator* (
-		tmat3x2<T, P> const & m1,
-		tmat3x3<T, P> const & m2);
+        tmat3x2<T, P> GLM_REFERENCE m1,
+        tmat3x3<T, P> GLM_REFERENCE m2);
 		
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat4x2<T, P> operator* (
-		tmat3x2<T, P> const & m1,
-		tmat4x3<T, P> const & m2);
+        tmat3x2<T, P> GLM_REFERENCE m1,
+        tmat4x3<T, P> GLM_REFERENCE m2);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator/ (
-		tmat3x2<T, P> const & m,
-		T const & s);
+        tmat3x2<T, P> GLM_REFERENCE m,
+        T GLM_REFERENCE s);
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> operator/ (
-		T const & s,
-		tmat3x2<T, P> const & m);
+        T GLM_REFERENCE s,
+        tmat3x2<T, P> GLM_REFERENCE m);
 
 	// Unary constant operators
 	template <typename T, precision P>
 	GLM_FUNC_DECL tmat3x2<T, P> const operator-(
-		tmat3x2<T, P> const & m);
+        tmat3x2<T, P> GLM_REFERENCE m);
 
 }//namespace detail
 }//namespace glm

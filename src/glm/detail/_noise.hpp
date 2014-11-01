@@ -33,92 +33,92 @@ namespace glm{
 namespace detail
 {
 	template <typename T>
-	GLM_FUNC_QUALIFIER T mod289(T const & x)
+	GLM_FUNC_QUALIFIER T mod289(T GLM_REFERENCE x)
 	{
 		return x - floor(x * static_cast<T>(1.0) / static_cast<T>(289.0)) * static_cast<T>(289.0);
 	}
 
 	template <typename T>
-	GLM_FUNC_QUALIFIER T permute(T const & x)
+	GLM_FUNC_QUALIFIER T permute(T GLM_REFERENCE x)
 	{
 		return mod289(((x * static_cast<T>(34)) + static_cast<T>(1)) * x);
 	}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P> permute(tvec2<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec2<T, P> permute(tvec2<T, P> GLM_REFERENCE x)
 	{
 		return mod289(((x * static_cast<T>(34)) + static_cast<T>(1)) * x);
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec3<T, P> permute(tvec3<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec3<T, P> permute(tvec3<T, P> GLM_REFERENCE x)
 	{
 		return mod289(((x * static_cast<T>(34)) + static_cast<T>(1)) * x);
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec4<T, P> permute(tvec4<T, P> const & x)
+	GLM_FUNC_QUALIFIER tvec4<T, P> permute(tvec4<T, P> GLM_REFERENCE x)
 	{
 		return mod289(((x * static_cast<T>(34)) + static_cast<T>(1)) * x);
 	}
 /*
 	template <typename T, precision P, template<typename> class vecType>
-	GLM_FUNC_QUALIFIER vecType<T, P> permute(vecType<T, P> const & x)
+	GLM_FUNC_QUALIFIER vecType<T, P> permute(vecType<T, P> GLM_REFERENCE x)
 	{
 		return mod289(((x * T(34)) + T(1)) * x);
 	}
 */
 	template <typename T>
-	GLM_FUNC_QUALIFIER T taylorInvSqrt(T const & r)
+	GLM_FUNC_QUALIFIER T taylorInvSqrt(T GLM_REFERENCE r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec2<T, P> taylorInvSqrt(detail::tvec2<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec2<T, P> taylorInvSqrt(detail::tvec2<T, P> GLM_REFERENCE r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec3<T, P> taylorInvSqrt(detail::tvec3<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec3<T, P> taylorInvSqrt(detail::tvec3<T, P> GLM_REFERENCE r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec4<T, P> taylorInvSqrt(detail::tvec4<T, P> const & r)
+	GLM_FUNC_QUALIFIER detail::tvec4<T, P> taylorInvSqrt(detail::tvec4<T, P> GLM_REFERENCE r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 /*
 	template <typename T, precision P, template<typename> class vecType>
-	GLM_FUNC_QUALIFIER vecType<T, P> taylorInvSqrt(vecType<T, P> const & r)
+	GLM_FUNC_QUALIFIER vecType<T, P> taylorInvSqrt(vecType<T, P> GLM_REFERENCE r)
 	{
 		return T(1.79284291400159) - T(0.85373472095314) * r;
 	}
 */
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec2<T, P> fade(detail::tvec2<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec2<T, P> fade(detail::tvec2<T, P> GLM_REFERENCE t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec3<T, P> fade(detail::tvec3<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec3<T, P> fade(detail::tvec3<T, P> GLM_REFERENCE t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
 	
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER detail::tvec4<T, P> fade(detail::tvec4<T, P> const & t)
+	GLM_FUNC_QUALIFIER detail::tvec4<T, P> fade(detail::tvec4<T, P> GLM_REFERENCE t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}
 /*
 	template <typename T, precision P, template <typename> class vecType>
-	GLM_FUNC_QUALIFIER vecType<T, P> fade(vecType<T, P> const & t)
+	GLM_FUNC_QUALIFIER vecType<T, P> fade(vecType<T, P> GLM_REFERENCE t)
 	{
 		return (t * t * t) * (t * (t * T(6) - T(15)) + T(10));
 	}

@@ -37,7 +37,7 @@
 #define VECTORIZE1_VEC(func)						\
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec1<T, P> func(	\
-		detail::tvec1<T, P> const & v)				\
+		detail::tvec1<T, P> GLM_REFERENCE v)				\
 	{												\
 		return detail::tvec1<T, P>(					\
 			func(v.x));								\
@@ -46,7 +46,7 @@
 #define VECTORIZE2_VEC(func)						\
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec2<T, P> func(	\
-		detail::tvec2<T, P> const & v)				\
+		detail::tvec2<T, P> GLM_REFERENCE v)				\
 	{												\
 		return detail::tvec2<T, P>(					\
 			func(v.x),								\
@@ -56,7 +56,7 @@
 #define VECTORIZE3_VEC(func)						\
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec3<T, P> func(	\
-		detail::tvec3<T, P> const & v)				\
+		detail::tvec3<T, P> GLM_REFERENCE v)				\
 	{												\
 		return detail::tvec3<T, P>(					\
 			func(v.x),								\
@@ -67,7 +67,7 @@
 #define VECTORIZE4_VEC(func)						\
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec4<T, P> func(	\
-		detail::tvec4<T, P> const & v)				\
+		detail::tvec4<T, P> GLM_REFERENCE v)				\
 	{												\
 		return detail::tvec4<T, P>(					\
 			func(v.x),								\
@@ -86,8 +86,8 @@
 	template <typename T, precision P>						\
 	GLM_FUNC_QUALIFIER detail::tvec1<T, P> func				\
 	(														\
-		detail::tvec1<T, P> const & x,						\
-		T const & y											\
+		detail::tvec1<T, P> GLM_REFERENCE x,						\
+		T GLM_REFERENCE y											\
 	)														\
 	{														\
 		return detail::tvec1<T, P>(							\
@@ -98,8 +98,8 @@
 	template <typename T, precision P>						\
 	GLM_FUNC_QUALIFIER detail::tvec2<T, P> func				\
 	(														\
-		detail::tvec2<T, P> const & x,						\
-		T const & y	\
+		detail::tvec2<T, P> GLM_REFERENCE x,						\
+		T GLM_REFERENCE y	\
 	)														\
 	{														\
 		return detail::tvec2<T, P>(							\
@@ -111,8 +111,8 @@
 	template <typename T, precision P>						\
 	GLM_FUNC_QUALIFIER detail::tvec3<T, P> func				\
 	(														\
-		detail::tvec3<T, P> const & x,						\
-		T const & y	\
+		detail::tvec3<T, P> GLM_REFERENCE x,						\
+		T GLM_REFERENCE y	\
 	)														\
 	{														\
 		return detail::tvec3<T, P>(							\
@@ -125,8 +125,8 @@
 	template <typename T, precision P>						\
 	GLM_FUNC_QUALIFIER detail::tvec4<T, P> func				\
 	(														\
-		detail::tvec4<T, P> const & x,						\
-		T const & y	\
+		detail::tvec4<T, P> GLM_REFERENCE x,						\
+		T GLM_REFERENCE y	\
 	)														\
 	{														\
 		return detail::tvec4<T, P>(							\
@@ -146,8 +146,8 @@
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec2<T, P> func		\
 	(												\
-		detail::tvec2<T, P> const & x,				\
-		detail::tvec2<T, P> const & y				\
+		detail::tvec2<T, P> GLM_REFERENCE x,				\
+		detail::tvec2<T, P> GLM_REFERENCE y				\
 	)												\
 	{												\
 		return detail::tvec2<T, P>(					\
@@ -159,8 +159,8 @@
 	template <typename T, precision P>				\
 	GLM_FUNC_QUALIFIER detail::tvec3<T, P> func		\
 	(												\
-		detail::tvec3<T, P> const & x,				\
-		detail::tvec3<T, P> const & y				\
+		detail::tvec3<T, P> GLM_REFERENCE x,				\
+		detail::tvec3<T, P> GLM_REFERENCE y				\
 	)												\
 	{												\
 		return detail::tvec3<T, P>(					\
@@ -173,8 +173,8 @@
 	template <typename T, precision P>			\
 	GLM_FUNC_QUALIFIER detail::tvec4<T, P> func	\
 	(											\
-		detail::tvec4<T, P> const & x,			\
-		detail::tvec4<T, P> const & y			\
+		detail::tvec4<T, P> GLM_REFERENCE x,			\
+		detail::tvec4<T, P> GLM_REFERENCE y			\
 	)											\
 	{											\
 		return detail::tvec4<T, P>(				\

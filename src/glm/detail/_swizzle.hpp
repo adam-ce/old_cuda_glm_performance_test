@@ -176,7 +176,7 @@ namespace detail
 		typedef ValueType       value_type;
 
 		struct Stub {};
-		GLM_FUNC_QUALIFIER _swizzle_base2& operator= (Stub const &) { return *this; }
+		GLM_FUNC_QUALIFIER _swizzle_base2& operator= (Stub GLM_REFERENCE) { return *this; }
 
 		GLM_FUNC_QUALIFIER value_type  operator[]  (size_t i) const
 		{
