@@ -1,0 +1,173 @@
+#test 1
+more syntetic, divided into 3 subtests: matrix multiplication, dot products and cross product.
+- glm matrix multiplication gets much better after aligning vec4 to 16 bytes
+
+#test 2a and 2b
+taken from "real life"
+- 2a uses earyly exit from a loop, which is actually more expensive in both, glm and cuda, but glm is 10% - 12% behind cuda. this early exit is random, so sometimes the time will be lower and sometimes higher. ocasioanlly the time is very low and glm is faster.
+
+in 2a glm is about 1% behind
+
+
+
+
+######  apendix  ######
+#### test results ####
+
+## glm 0954 vanilla ##
+#test 1
+time for cuda glm (matrix):         2148 milliseconds
+time for cuda helper math (matrix): 662 milliseconds
+time for cuda glm (dot):            592 milliseconds
+time for cuda helper math (dot):    472 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+
+#test 2a (4 different launches)
+time for glm:   537 milliseconds
+time for cuda:  467 milliseconds
+
+time for glm:   488 milliseconds
+time for cuda:  416 milliseconds
+
+time for glm:   483 milliseconds
+time for cuda:  411 milliseconds
+
+time for glm:   424 milliseconds
+time for cuda:  380 milliseconds
+
+#test 2b
+time for glm:   401 milliseconds
+time for cuda:  370 milliseconds
+
+## glm 0954 with vec4 align 16 ##
+#test 1
+time for cuda glm (matrix):         543 milliseconds
+time for cuda helper math (matrix): 654 milliseconds
+time for cuda glm (dot):            473 milliseconds
+time for cuda helper math (dot):    479 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+
+#test 2a (4 different launches)
+time for glm:   422 milliseconds
+time for cuda:  393 milliseconds
+
+time for glm:   396 milliseconds
+time for cuda:  380 milliseconds
+
+time for glm:   544 milliseconds
+time for cuda:  503 milliseconds
+
+time for glm:   464 milliseconds
+time for cuda:  411 milliseconds
+
+#test 2b
+time for glm:   388 milliseconds
+time for cuda:  370 milliseconds
+
+## glm 0954 with vec3 and vec4 align 16 ##
+#test 1
+CUDA kernel launch with 19532 blocks of 256 threads
+time for cuda glm (matrix):         542 milliseconds
+time for cuda helper math (matrix): 658 milliseconds
+time for cuda glm (dot):            481 milliseconds
+time for cuda helper math (dot):    507 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+
+#test 2a (4 different launches)
+time for glm:   471 milliseconds
+time for cuda:  422 milliseconds
+
+time for glm:   468 milliseconds
+time for cuda:  416 milliseconds
+
+time for glm:   471 milliseconds
+time for cuda:  428 milliseconds
+
+time for glm:   474 milliseconds
+time for cuda:  432 milliseconds
+
+#test 2b
+time for glm:   388 milliseconds
+time for cuda:  370 milliseconds
+
+## glm0954 vec3 and vec4 aligned, m[0][0] * v[0] + .. matrix multiplication ##
+#test 1
+CUDA kernel launch with 19532 blocks of 256 threads
+time for cuda glm (matrix):         541 milliseconds
+time for cuda helper math (matrix): 657 milliseconds
+time for cuda glm (dot):            491 milliseconds
+time for cuda helper math (dot):    491 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+ 
+#test 2a (4 different launches)
+time for glm:   504 milliseconds
+time for cuda:  419 milliseconds
+ 
+time for glm:   495 milliseconds
+time for cuda:  411 milliseconds
+ 
+time for glm:   441 milliseconds
+time for cuda:  380 milliseconds
+ 
+time for glm:   502 milliseconds
+time for cuda:  419 milliseconds
+ 
+#test 2b
+time for glm:   403 milliseconds
+time for cuda:  370 milliseconds
+
+## glm0954 vec3 and vec4 aligned, m.value[0].x * v.x +  .. matrix multiplication ##
+#test 1
+CUDA kernel launch with 19532 blocks of 256 threads
+time for cuda glm (matrix):         546 milliseconds
+time for cuda helper math (matrix): 659 milliseconds
+time for cuda glm (dot):            486 milliseconds
+time for cuda helper math (dot):    497 milliseconds
+time for cuda glm (cross):          245 milliseconds
+time for cuda helper math (cross):  340 milliseconds
+ 
+#test 2a (4 different launches)
+time for glm:   510 milliseconds
+time for cuda:  469 milliseconds
+ 
+time for glm:   515 milliseconds
+time for cuda:  470 milliseconds
+ 
+time for glm:   465 milliseconds
+time for cuda:  411 milliseconds
+ 
+time for glm:   469 milliseconds
+time for cuda:  416 milliseconds
+ 
+#test 2b
+time for glm:   378 milliseconds
+time for cuda:  370 milliseconds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

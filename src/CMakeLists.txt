@@ -32,14 +32,6 @@ else()
   #link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../winlib/lib)
 endif()
 
-set(project_SRCS
-main.cu
-)
-
-set(compoundTest_SRCS
-compound.cu
-)
-
 #set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-O3 --use_fast_math -gencode arch=compute_20,code=sm_20)
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} "-g -use_fast_math -gencode arch=compute_20,code=sm_20")
 
@@ -51,13 +43,15 @@ else()
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 endif()
 
-cuda_add_executable(cudaGlmPerfTest ${project_SRCS})
-cuda_add_executable(compoundTest ${compoundTest_SRCS})
+cuda_add_executable(test1 test1.cu)
+cuda_add_executable(test2a test2a.cu)
+cuda_add_executable(test2b test2b.cu)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(LIBS ${LIBS})
-    target_link_libraries(cudaGlmPerfTest ${LIBS})
-    target_link_libraries(compoundTest ${LIBS})
+    target_link_libraries(test1 ${LIBS})
+    target_link_libraries(test2a ${LIBS})
+    target_link_libraries(test2b ${LIBS})
 else()
     set(LIBS ${LIBS})
 endif()

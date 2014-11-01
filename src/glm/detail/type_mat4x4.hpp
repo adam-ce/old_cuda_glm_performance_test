@@ -56,7 +56,7 @@ namespace detail
 		template <typename U, precision Q>
 		friend tvec4<U, Q> operator/(tvec4<U, Q> const & v, tmat4x4<U, Q> const & m);
 
-	private:
+    public:
 		/// @cond DETAIL
 		col_type value[4];
 		/// @endcond

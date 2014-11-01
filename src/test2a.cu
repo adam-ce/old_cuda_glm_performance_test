@@ -261,7 +261,7 @@ __global__ void glmKernel(const uint4* input, uchar4 *result) {
     if (materialIndex < 50 && materialIndex > 0) {
         outColour = glm::vec4(textureColour.x * 0.2f, textureColour.y * 0.2f, textureColour.z * 0.2f, 0.f);
         for(int i=0; i<g_lightsCount; i++) {
-            glm::vec4 shadingPosInLightSpace = test::mul(g_glmLights[i].vpMat, pos);
+            glm::vec4 shadingPosInLightSpace = g_glmLights[i].vpMat * pos;
             if(shadingPosInLightSpace.z < 0.f) continue;
             shadingPosInLightSpace /= shadingPosInLightSpace.w;
             if(shadingPosInLightSpace.x < -1.f || shadingPosInLightSpace.x > 1.f) continue;
@@ -400,7 +400,7 @@ int main(int argc, char *argv[]) {
     hce(cudaDeviceSynchronize());
 
     auto time0 = std::chrono::high_resolution_clock::now();
-    for(int r = 0; r < 100; r++) {
+    for(int r = 0; r < 10; r++) {
         glmKernel<<<numBlocks, threadsPerBlock>>>(d_input, d_glmOutput);
         hce(cudaDeviceSynchronize());
     }
@@ -412,7 +412,7 @@ int main(int argc, char *argv[]) {
     hce(cudaDeviceSynchronize());
 
     auto time2 = std::chrono::high_resolution_clock::now();
-    for(int r = 0; r < 100; r++) {
+    for(int r = 0; r < 10; r++) {
         cudaKernel<<<numBlocks, threadsPerBlock>>>(d_input, d_cudaOutput);
         hce(cudaDeviceSynchronize());
     }

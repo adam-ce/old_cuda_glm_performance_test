@@ -3,3 +3,4 @@ src/CMakeLists.txt.user
 src-build
 src/glm/CMakeLists.txt
 src/glm_master/*
+src/glm_edited/*

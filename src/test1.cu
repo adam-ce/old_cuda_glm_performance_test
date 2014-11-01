@@ -256,10 +256,10 @@ int main(int argc, char *argv[]) {
             std::cerr << "error matrix i=" << i << std::endl;
             break;
         }
-        if(glm::length(cpuResult[i] - glmResult[i]) > 0.01f) {
-            std::cerr << "error matrix i=" << i << std::endl;
-            break;
-        }
+//        if(glm::length(cpuResult[i] - glmResult[i]) > 0.01f) {
+//            std::cerr << "error matrix i=" << i << std::endl;
+//            break;
+//        }
     }
 
     auto timeDot0 = std::chrono::high_resolution_clock::now();
@@ -283,10 +283,10 @@ int main(int argc, char *argv[]) {
             std::cerr << "error dot i=" << i << std::endl;
             break;
         }
-        if(glm::length(cpuResult[i] - glmResult[i]) > 0.01f) {
-            std::cerr << "error dot i=" << i << std::endl;
-            break;
-        }
+//        if(glm::length(cpuResult[i] - glmResult[i]) > 0.01f) {
+//            std::cerr << "error dot i=" << i << std::endl;
+//            break;
+//        }
     }
 
 
@@ -313,21 +313,21 @@ int main(int argc, char *argv[]) {
             std::cerr << "error cross i=" << i << std::endl;
             break;
         }
-        if(glm::length(cpuResult3[i] - glmResult3[i]) > 0.01f) {
-            std::cerr << "error cross i=" << i << std::endl;
-            break;
-        }
+//        if(glm::length(cpuResult3[i] - glmResult3[i]) > 0.01f) {
+//            std::cerr << "error cross i=" << i << std::endl;
+//            break;
+//        }
     }
 
-    std::cout << "time for cpu glm (matrix):          " << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix3 -  timeMatrix2).count() << " milliseconds" << std::endl;
+//    std::cout << "time for cpu glm (matrix):          " << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix3 -  timeMatrix2).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda glm (matrix):         " << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix1 -  timeMatrix0).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda helper math (matrix): " << std::chrono::duration_cast<std::chrono::milliseconds>(timeMatrix2 -  timeMatrix1).count() << " milliseconds" << std::endl;
 
-    std::cout << "time for cpu glm (dot):             " << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot3 -     timeDot2).count() << " milliseconds" << std::endl;
+//    std::cout << "time for cpu glm (dot):             " << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot3 -     timeDot2).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda glm (dot):            " << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot1 -     timeDot0).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda helper math (dot):    " << std::chrono::duration_cast<std::chrono::milliseconds>(timeDot2 -     timeDot1).count() << " milliseconds" << std::endl;
 
-    std::cout << "time for cpu glm (cross):           " << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross3 -   timeCross2).count() << " milliseconds" << std::endl;
+//    std::cout << "time for cpu glm (cross):           " << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross3 -   timeCross2).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda glm (cross):          " << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross1 -   timeCross0).count() << " milliseconds" << std::endl;
     std::cout << "time for cuda helper math (cross):  " << std::chrono::duration_cast<std::chrono::milliseconds>(timeCross2 -   timeCross1).count() << " milliseconds" << std::endl;
 
