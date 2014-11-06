@@ -326,7 +326,7 @@ __global__ void cudaKernel(const uint4* input, uchar4 *result) {
 int main(int argc, char *argv[]) {
     const int width = WIDTH;
     const int height = HEIGHT;
-    std::srand(std::time(0));
+    std::srand(5845530);
     GlmLight glmLights[2];
     GlmUniforms glmUniforms(width, height);
     CudaLight cudaLights[] = {glmLights[0], glmLights[1]};

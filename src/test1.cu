@@ -162,6 +162,7 @@ void cpuGlmCrossKernel(const glm::vec3 *vectors, glm::vec3 *result, int numEleme
 
 
 int main(int argc, char *argv[]) {
+    std::srand(5845530);
     glm::mat4 glmMatrix;
     glmMatrix[0] = glm::vec4(1.085f, -.15f, .72f, -0.65f);
     glmMatrix[1] = glm::vec4(.35f, -.89f, .79f, -.32f);
